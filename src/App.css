@@ -39,8 +39,6 @@
 
 .background_container {
   background-image: url(/src/Assets/wood_background.jpg);
-  height: 00%;
-  background-position: center;
-  background-repeat: repeat-y;
-  background-size:cover;
+  height: 109vh; 
+  background-size: cover; 
 }

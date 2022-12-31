@@ -1,0 +1,53 @@
+.notebook {
+  position: absolute;
+  align-items: center;
+padding-left: 400px;
+padding-top: 20px;
+padding-bottom: 25px;
+
+}
+.side {
+  position: absolute;
+  width: 85px;
+  height: 900px;
+  
+  background: #202020;
+  border-radius: 20px 0px 0px 20px;
+}
+  .cover {
+box-sizing: border-box;
+position: absolute;
+width: 744px;
+height: 900px;
+
+background: url(/src/Assets/hand-drawn-composition-notebook-pattern_23-2149275201.webp);
+border: 1px solid #8A8A8A;
+filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+border-radius: 20px 20px 20px 20px;
+  }
+
+  .pencil_img {
+    position: absolute;
+    padding-left: 390px;
+    width: 422px;
+    height: 570px;
+    transform: rotate(35deg);
+  }
+  .task-list{
+    font-size: large;
+    color: #202020;
+  }
+  .search {
+  position: absolute;
+    padding-left: 1290px;
+    padding-top: 630px;
+ transform: rotate(341deg); 
+ 
+.bar {
+  background-color: #202020;;
+}
+ 
+   
+   
+
+  }
