@@ -3,9 +3,12 @@ import { Todo, Background } from './components'
 
 const App = () => (
   <div className="App">
-    < Background />
+ <div className='background_container'>
+
+
     <Todo />
   </div>
+</div>
 );
 
 
