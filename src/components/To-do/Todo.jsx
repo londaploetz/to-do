@@ -4,8 +4,10 @@ import Pencil from'./Pencil';
 import Storage from './Storage';
 
 
+
 const Todo = () => (
-   <div className='desk'><Storage/>
+   <div className='desk'>
+    <Storage/>
    <div className="notebook">
         <div className='cover'>
              
