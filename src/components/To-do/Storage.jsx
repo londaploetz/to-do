@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import pencilimg from '../../Assets/redpencil.png';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import{ faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 const Storage = () => {
 
@@ -49,10 +50,10 @@ const Storage = () => {
 
     const updateTask = (id) => {
         const newTodoItems = [...tasks];
-       console.log(newTodoItems) 
+      
         const item = newTodoItems[id]; 
        
-          let newItem = prompt (item.task); 
+          let newItem = prompt (`update task ${item.id +1}?`, item.task); 
           let todoObj = {id: id, text: newItem};
        
         newTodoItems.splice(id, 1, todoObj);
@@ -74,18 +75,24 @@ const Storage = () => {
                 <input className='bar'
                     name="task"
                     type="text"
-                    placeholder="add todo"
+                    placeholder="add to-do"
                     value={task}
                     onChange={handleInputChange}
                 />
             </form>
-            <ul className="task-list">
+           <div className='white-bgr'> <ul className='whole-list'>
                 {tasks.map((task) => (
-                    <li key={task.id}> {task.text} <button className='delete' onClick={() => handleDeleteClick(task.id)}>X</button>
-                    <button className='edit' onClick={() => updateTask(task.id)}>edit</button></li>
-
+                    <li className='task-list' key={task.id}> {task.text} 
+                    <div className='button-change'>  
+                    <button className='delete' onClick={() => handleDeleteClick(task.id)}> 
+                    <FontAwesomeIcon className='icons' icon={faTrashCan} />
+                    </button>
+                    <button className='edit' onClick={() => updateTask(task.id)}>
+                    <FontAwesomeIcon className='icons' icon={faPenToSquare}/></button> </div>
+                    </li>
+               
                 ))}
-            </ul>
+            </ul></div>
         </div>
     );
 

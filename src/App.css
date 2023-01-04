@@ -37,8 +37,12 @@
   }
 }
 
-.background_container {
-  background-image: url(/src/Assets/wood_background.jpg);
-  height: 109vh; 
-  background-size: cover; 
+
+
+html { 
+  background: url(/src/Assets/wood_background.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }

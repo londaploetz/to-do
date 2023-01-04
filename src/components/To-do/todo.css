@@ -1,37 +1,75 @@
-.notebook {
+.task-list {
+  display: inline-flex;
+  flex-direction: column;
+
+  text-align: left;
+  align-items: left;
+  margin-top: 2ch;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  text-emphasis: none;
+  color: #000000;
+  overflow-wrap: break-word;
+  flex-wrap: wrap;
+
+}
+
+.white-bgr {
+  background-color: #FAFAFA;
   position: absolute;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
+  left: 16%;
+  top: 26%;
   align-items: center;
-  left: 250px;
-  top: 28px;
-  bottom: 25px;
+  border-radius: 20px 20px 20px 20px;
+  overflow: auto;
+  border: 5px #000000;
+  border-style: double;
+
+}
+
+.notebook {
+  position: fixed;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+  align-items: center;
+  left: 200px;
+  top: 25px;
+  bottom: 45px;
 
 }
 
 .side {
-  position: absolute;
+  position: fixed;
   width: 85px;
-  height: 860px;
-
-
-  background: #202020;
+  height: 809px;
+  left: -1px;
+  top: -6px;
+  background: #000000;
   border-radius: 20px 0px 0px 20px;
 }
 
 .cover {
 
   box-sizing: border-box;
-  position: absolute;
+  position: fixed;
   width: 660px;
-  height: 860px;
+  height: 812px;
   background: url(/src/Assets/hand-drawn-composition-notebook-pattern_23-2149275201.webp);
-  border: 1px solid #8A8A8A;
+  border: 8px solid #000000;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border-radius: 20px 20px 20px 20px;
 }
 
 .pencil_img {
-  position: absolute;
-  left: 63%;
+  position: fixed;
+  left: 140%;
   top: 5%;
   width: 422px;
   height: 570px;
@@ -39,68 +77,111 @@
 }
 
 .search {
-  position: absolute;
-  left: 67%;
-  top: 35%;
+  position: fixed;
+  left: 158%;
+  top: 37%;
+  width: 29%;
+  height: 4%;
   transform: rotate(340deg);
   background: #FAFAFA;
   border: 3px solid #000000;
+  border-radius: 20px 20px 20px 20px;
 }
 
-.taskbar {
+.bar {
+  position: fixed;
   background: #FAFAFA;
   border: none;
   display: block;
-
-}
-
-.task-list {
-
-  position: relative;
-  align-items: center;
-  left: 500px;
-  top: 20px;
-  bottom: 25px;
-
+  left: 1.5ch;
+  width: fit-content;
   font-family: 'Courier New', Courier, monospace;
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 12px;
   line-height: 23px;
-
-  color: #000000;
+  text-emphasis: none;
+  border-radius: 1px 1px 1px 1px;
+  text-align: left;
+  top: .5ch;
 }
+
 
 .delete {
-  background-color: #00000000;
+  text-align: left;
+  align-items: left;
+  background-color: rgba(255, 255, 255, 0);
   border: none;
-  position: initial;
-
-
-  font-family: 'Courier New', Courier, monospace;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 23px;
-
-  color: #000000;
-
+  color: #d62323;
+  margin-left: 2ch;
+  flex-wrap: wrap;
 }
 
 
 .edit {
-  background-color: #00000000;
+
+  text-align: left;
+  align-items: left;
+  background-color: rgba(255, 255, 255, 0);
   border: none;
-  position: absolute;
-  table-layout: auto;
+  color: #0c49a5;
+
+  margin-left: 2ch;
+  flex-wrap: wrap;
+}
+
+.button-change {
+  text-align: right;
+  display: inline-flex;
+  flex-direction: row;
+  margin-left: 310px;
+  border: none;
+  margin-top: -33px;
 
 
+
+}
+
+.whole-list {
+  position: flex;
+  text-align: left;
+  margin-bottom: -7ch;
+  margin-right: 15ch;
+  top: 4%;
+
+
+}
+
+.header-todo {
+  position: fixed;
+  background-color: #FAFAFA;
+
+  justify-content: center;
+  width: 500px;
+  height: 100px;
+  left: 16%;
+  top: 2%;
+  align-items: center;
   font-family: 'Courier New', Courier, monospace;
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
-  line-height: 23px;
+  font-size: 40px;
+  border-radius: 20px 20px 20px 20px;
+  border: 5px #000000;
+  border-style: double;
+  z-index: 10;
+  text-decoration: underline;
+}
 
-  color: #000000;
+li {
+  position: relative;
 
+  border-bottom: 2px solid black;
+  overflow-wrap: break-word;
+  padding-top: .5ch;
+}
+
+.icons {
+  width: 2ch;
+  height: 6ch;
 }
