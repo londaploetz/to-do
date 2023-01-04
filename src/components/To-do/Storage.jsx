@@ -77,6 +77,7 @@ const Storage = () => {
     return (
         <div>
              <img
+            
                 className='paper-ball'
                 src={paperball}
                 onClick={() => handleClear(task)}
