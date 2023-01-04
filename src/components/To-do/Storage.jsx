@@ -2,7 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import pencilimg from '../../Assets/redpencil.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import{ faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import paperball from '../../Assets/paperball.png'
 
 const Storage = () => {
 
@@ -32,7 +33,7 @@ const Storage = () => {
             setTasks([
                 ...tasks,
                 {
-                    id: tasks.length, 
+                    id: tasks.length,
                     text: task
                 }
             ]);
@@ -48,27 +49,44 @@ const Storage = () => {
         setTasks(removeItem);
     }
 
+    function handleClear() {
+        const clearedItems = tasks.filter((task) => {
+            return (localStorage.removeItem(task))
+        });
+
+        setTasks(clearedItems)
+    }
+
+
     const updateTask = (id) => {
         const newTodoItems = [...tasks];
-      
-        const item = newTodoItems[id]; 
-       
-          let newItem = prompt (`update task ${item.id +1}?`, item.task); 
-          let todoObj = {id: id, text: newItem};
-       
+
+        const item = newTodoItems[id];
+
+        let newItem = prompt(`update task ${item.id + 1}?`, item.task);
+        let todoObj = { id: id, text: newItem };
+
         newTodoItems.splice(id, 1, todoObj);
         if (newItem === null || newItem === "") {
-        return;
+            return;
         } else {
-        item.task = newItem;
+            item.task = newItem;
         }
         setTasks(newTodoItems);
-        };
+    };
     return (
         <div>
+             <img
+                className='paper-ball'
+                src={paperball}
+                onClick={() => handleClear(task)}
+            />
+            
+
             <img
                 className='pencil_img'
                 src={pencilimg}
+               
             />
             <form className='search' onSubmit={handleFormSubmit}>
 
@@ -80,19 +98,22 @@ const Storage = () => {
                     onChange={handleInputChange}
                 />
             </form>
-           <div className='white-bgr'> <ul className='whole-list'>
+            <div className='white-bgr'> <ul className='whole-list'>
                 {tasks.map((task) => (
-                    <li className='task-list' key={task.id}> {task.text} 
-                    <div className='button-change'>  
-                    <button className='delete' onClick={() => handleDeleteClick(task.id)}> 
-                    <FontAwesomeIcon className='icons' icon={faTrashCan} />
-                    </button>
-                    <button className='edit' onClick={() => updateTask(task.id)}>
-                    <FontAwesomeIcon className='icons' icon={faPenToSquare}/></button> </div>
+                    <li className='task-list' key={task.id}> {task.text}
+                        <div className='button-change'>
+                            <button className='delete' onClick={() => handleDeleteClick(task.id)}>
+                                <FontAwesomeIcon className='icons' icon={faTrashCan} />
+                            </button>
+                            <button className='edit' onClick={() => updateTask(task.id)}>
+                                <FontAwesomeIcon className='icons' icon={faPenToSquare} /></button>
+
+                        </div>
                     </li>
-               
+
                 ))}
-            </ul></div>
+            </ul>
+            </div>
         </div>
     );
 

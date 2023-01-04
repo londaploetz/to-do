@@ -27,6 +27,7 @@
   top: 26%;
   align-items: center;
   border-radius: 20px 20px 20px 20px;
+
   overflow: auto;
   border: 5px #000000;
   border-style: double;
@@ -69,8 +70,8 @@
 
 .pencil_img {
   position: fixed;
-  left: 140%;
-  top: 5%;
+  left: 130%;
+  top: 4%;
   width: 422px;
   height: 570px;
   transform: rotate(35deg);
@@ -78,8 +79,8 @@
 
 .search {
   position: fixed;
-  left: 158%;
-  top: 37%;
+  left: 141%;
+  top: 39%;
   width: 29%;
   height: 4%;
   transform: rotate(340deg);
@@ -105,6 +106,17 @@
   text-align: left;
   top: .5ch;
 }
+
+
+.paper-ball {
+  position: fixed;
+  left: 169%;
+  top: 50%;
+  width: 300px;
+  height: 370px;
+
+}
+
 
 
 .delete {
@@ -184,4 +196,20 @@ li {
 .icons {
   width: 2ch;
   height: 6ch;
+}
+
+
+
+::-webkit-scrollbar-track {
+  background: #ffffff00;
+  margin-top: 1ch;
+  margin-bottom: 1ch;
+  border-radius: 199ch;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: rgb(36, 36, 36);
+  border-radius: 145ch;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
 }

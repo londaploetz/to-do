@@ -1,6 +1,5 @@
 import React from 'react';
 import './todo.css';
-
 import Storage from './Storage';
 
   const current = new Date();
@@ -19,6 +18,7 @@ const Todo = () => (
           </h1>
         
        <Storage/>  
+    
       <div className='side'>  
            
     </div>
