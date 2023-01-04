@@ -75,14 +75,15 @@ const Storage = () => {
         setTasks(newTodoItems);
     };
     return (
-        <div>
+        <div> 
              <img
             
                 className='paper-ball'
+                title='clear'
                 src={paperball}
                 onClick={() => handleClear(task)}
             />
-            
+        
 
             <img
                 className='pencil_img'
