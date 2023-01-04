@@ -34,6 +34,8 @@
 
 }
 
+
+
 .notebook {
   position: fixed;
   justify-content: center;
@@ -119,8 +121,8 @@
 
 .paper-ball:focus, .paper-ball:hover {
     animation: wobble 1s 1
-   
 }
+
 @keyframes wobble {
   25% {
     transform: rotate(15deg);
@@ -175,6 +177,7 @@
 
 }
 
+
 .whole-list {
   position: flex;
   text-align: left;
@@ -221,16 +224,3 @@ li {
 
 
 
-::-webkit-scrollbar-track {
-  background: #ffffff00;
-  margin-top: 1ch;
-  margin-bottom: 1ch;
-  border-radius: 199ch;
-}
-
-
-::-webkit-scrollbar-thumb {
-  background: rgb(36, 36, 36);
-  border-radius: 145ch;
-  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
-}
