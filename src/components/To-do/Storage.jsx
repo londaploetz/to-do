@@ -75,20 +75,20 @@ const Storage = () => {
         setTasks(newTodoItems);
     };
     return (
-        <div> 
-             <img
-            
+        <div>
+            <img
+
                 className='paper-ball'
                 title='clear'
                 src={paperball}
                 onClick={() => handleClear(task)}
             />
-        
+
 
             <img
                 className='pencil_img'
                 src={pencilimg}
-               
+
             />
             <form className='search' onSubmit={handleFormSubmit}>
 
@@ -108,7 +108,8 @@ const Storage = () => {
                                 <FontAwesomeIcon className='icons' icon={faTrashCan} />
                             </button>
                             <button className='edit' onClick={() => updateTask(task.id)}>
-                                <FontAwesomeIcon className='icons' icon={faPenToSquare} /></button>
+                                <FontAwesomeIcon className='icons' icon={faPenToSquare} />
+                            </button>
 
                         </div>
                     </li>
