@@ -4,11 +4,13 @@ import pencilimg from '../../Assets/redpencil.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import paperball from '../../Assets/paperball.png'
+import Axios from 'axios'
 
 const Storage = () => {
 
     const [tasks, setTasks] = useState(() => {
 
+   
         const savedTasks = localStorage.getItem("tasks");
         if (savedTasks) {
             return JSON.parse(savedTasks);
@@ -17,7 +19,13 @@ const Storage = () => {
         }
     });
     const [task, setTask] = useState("");
-
+     
+    const addTodo = () => {
+        Axios.post('http://localhost:3001/create',
+            { task: task}).then(() => {
+                console.log('sucess');
+            });
+    };
 
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -40,7 +48,9 @@ const Storage = () => {
         }
 
         setTask("");
+        addTodo(setTask); 
     }
+  
 
     function handleDeleteClick(id) {
         const removeItem = tasks.filter((task) => {
@@ -73,6 +83,7 @@ const Storage = () => {
             item.task = newItem;
         }
         setTasks(newTodoItems);
+       
     };
     return (
         <div>
@@ -90,14 +101,17 @@ const Storage = () => {
                 src={pencilimg}
 
             />
-            <form className='search' onSubmit={handleFormSubmit}>
+            <form className='search' onSubmit=  {handleFormSubmit}
+            // onSubmit ={addTodo} 
+           
+            >
 
                 <input className='bar'
                     name="task"
                     type="text"
                     placeholder="add to-do"
                     value={task}
-                    onChange={handleInputChange}
+                    onChange= {handleInputChange}
                 />
             </form>
             <div className='white-bgr'> <ul className='whole-list'>
