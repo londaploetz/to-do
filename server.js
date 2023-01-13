@@ -1,25 +1,77 @@
 const express = require('express');
-const db = require('./db.js')
+// const db = require('./db')
 const cors = require('cors')
+const app = express();
 
-const app = express(); 
-app.use(cors()); 
+
+const mysql = require('mysql')
+const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password",
+    database: "task_list"
+})
+
+db.on('error', function (err) {
+    console.log("[mysql error]", err);
+});
+
+app.use(cors());
 app.use(express.json())
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
 
-module.exports = db;
-app.post('/create',(req,res)=>{
+const PORT = 3004;
 
-const task = req.body.tast; 
-    
-    db.query("INSERT INTO todo-list (task) VALUES (?)"),  [task], (err, result) => {
-        if (err) {
-            console.log(err); 
-        } else 
-        res.send('Values Inserted')
+
+db.connect(function (err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
     }
-}); 
+    console.log('connected as id ' + db.threadId);
+});
 
-app.listen(3001, ()=>{
-    console.log(`Server is running on 3001`)
+// Route to get all tasks
+app.get("/api/task", (req,res)=>{
+    db.query("SELECT * FROM todo_list", (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+    res.send(result)
+    });   });
+
+
+// Route for creating the task
+app.post('/api/create', (req, res) => {
+
+    const task = req.body.task;
+
+    db.query("INSERT INTO todo_list (task) VALUES (?)", task, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log(result)
+    });
+})
+
+
+// Route to delete a post
+app.delete('/api/delete/:id', (req, res) => {
+    const id = req.params.id;
+
+    db.query("DELETE FROM todo_list WHERE id= ?", id, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+    })
+})
+
+
+
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`)
 }); 
