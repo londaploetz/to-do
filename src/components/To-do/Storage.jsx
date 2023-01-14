@@ -20,7 +20,7 @@ const Storage = () => {
     });
     const [databaseChoice, setDatabaseChoice] = useState('local');
     const [taskInput, setTaskInput] = useState("");
-
+    const [taskDatabaseList, setTaskDatabaseList] = useState([]);
 
     useEffect(() => {
         if (databaseChoice === 'local') {
@@ -96,13 +96,19 @@ const Storage = () => {
     const addTodo = () => {
         Axios.post('http://localhost:3004/api/create',
             { task: taskInput }).then(() => {
-                console.log('sucess');
-            });
-    };
+                setTaskDatabaseList([
+                  ...taskDatabaseList,
+                  {
+                    task: taskInput,
+                  },
+                ]);
+              });
+            };
 
     const getTaskList = () => {
         Axios.get('http://localhost:3004/api/task').then((response) => {
-            setTaskInput(response.data);
+           setTaskDatabaseList(response.data)
+            console.log(response)
         });
 
     };
@@ -134,7 +140,7 @@ const Storage = () => {
                 <button className='bd_add' onClick={addTodo}>Click me</button>
                 <input className='bar'
                     name="taskInput"
-                    type="text"
+                    type="task"
                     placeholder="add to-do"
                     value={taskInput}
                     onChange={handleInputChange}
@@ -142,8 +148,8 @@ const Storage = () => {
             </form>
           {databaseChoice === 'local' ?  
                 <div className='white-bgr'> <ul className='whole-list'>
-                    {tasks.map((tasks) => (
-                        <li className='task-list' key={tasks.id}> {taskInput.task}
+                    {tasks.map((taskInput) => (
+                        <li className='task-list' key={taskInput.id}> {taskInput.task}
                             <div className='button-change'>
                                 <button className='delete' onClick={() => handleDeleteClick(taskInput.id)}>
                                     <FontAwesomeIcon className='icons' icon={faTrashCan} />
@@ -161,10 +167,15 @@ const Storage = () => {
                 </div>
     
                : <div className='white-bgr'> <ul className='whole-list'>
-                    {tasks.map((taskInput) => (
-                        <li className='task-list' key={taskInput.id}> {getTaskList}
-                        {console.log(taskInput.id)}
-                            <div className='button-change'>
+                     <button onClick={getTaskList}>database list</button>
+                     {taskDatabaseList.map((taskInput, id) => {
+                          return <li key={id}> {taskInput.task} </li>
+                           })
+                        }
+                        {/* <li className='task-list' key={taskInput.id}> {taskInput.task}
+                        <li className='task-list' > {getTaskList} */}
+                        {console.log(tasks)}
+                            {/* <div className='button-change'>
                                 <button className='delete' onClick={() => deleteTodo(taskInput.id)}>
                                     <FontAwesomeIcon className='icons' icon={faTrashCan} />
                                 </button>
@@ -173,10 +184,10 @@ const Storage = () => {
                                 </button>
 
 
-                            </div>
-                        </li>
+                            </div> */}
+                        {/* </li> */}
 
-                    ))}
+                   
                 </ul>
                 </div>}
         </div>
