@@ -7,11 +7,10 @@ import paperball from '../../Assets/paperball.png'
 import Axios from 'axios'
 
 
+
 const Storage = () => {
 
     const [tasks, setTasks] = useState(() => {
-
-
         const savedTasks = localStorage.getItem("tasks");
         if (savedTasks) {
             return JSON.parse(savedTasks);
@@ -19,45 +18,57 @@ const Storage = () => {
             return [];
         }
     });
-    const [task, setTask] = useState("");
+    const [databaseChoice, setDatabaseChoice] = useState('local');
+    const [taskInput, setTaskInput] = useState("");
 
-    const [todoTasks, setTodoTasks] = useState([]);
 
     useEffect(() => {
-        localStorage.setItem("tasks", JSON.stringify(tasks));
+        if (databaseChoice === 'local') {
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+        } else if (databaseChoice === 'Mysql') {
+            getTaskList();
+        }
     }, [tasks]);
 
+
     function handleInputChange(e) {
-        setTask(e.target.value);
+        setTaskInput(e.target.value);
     }
     function handleFormSubmit(e) {
         e.preventDefault();
 
-        if (task !== "") {
+        if (taskInput !== "") {
             setTasks([
                 ...tasks,
                 {
                     id: tasks.length,
-                    text: task
+                    task: taskInput
                 }
             ]);
         }
 
-        setTask("");
+        setTaskInput("");
 
     }
 
+    function switchDatabase() {
+        if (databaseChoice === 'Mysql') {
+            setDatabaseChoice("local")
+        } else if (databaseChoice === "local") {
+            setDatabaseChoice("Mysql")
+        }
+    }
 
     function handleDeleteClick(id) {
-        const removeItem = tasks.filter((task) => {
-            return task.id !== id;
+        const removeItem = tasks.filter((taskInput) => {
+            return taskInput.id !== id;
         });
         setTasks(removeItem);
     }
 
-    function handleClear() { 
-        const clearedItems = tasks.filter((task) => {
-            return (localStorage.removeItem(task))
+    function handleClear() {
+        const clearedItems = tasks.filter((taskInput) => {
+            return (localStorage.removeItem(taskInput))
         });
 
         setTasks(clearedItems)
@@ -69,14 +80,14 @@ const Storage = () => {
 
         const item = newTodoItems[id];
 
-        let newItem = prompt(`update task ${item.id + 1}?`, item.task);
-        let todoObj = { id: id, text: newItem };
+        let newItem = prompt(`update task ${item.id + 1}?`, item.taskInput);
+        let todoObj = { id: id.taskInput, task: newItem };
 
         newTodoItems.splice(id, 1, todoObj);
         if (newItem === null || newItem === "") {
             return;
         } else {
-            item.task = newItem;
+            item.taskInput = newItem;
         }
         setTasks(newTodoItems);
 
@@ -84,37 +95,34 @@ const Storage = () => {
 
     const addTodo = () => {
         Axios.post('http://localhost:3004/api/create',
-            { task: task }).then(() => {
+            { task: taskInput }).then(() => {
                 console.log('sucess');
             });
     };
 
     const getTaskList = () => {
         Axios.get('http://localhost:3004/api/task').then((response) => {
-            setTodoTasks(response.data);
+            setTaskInput(response.data);
         });
 
     };
 
     const deleteTodo = () => {
-        Axios.delete('http://localhost:3004/api/delete/:id', task.id);
+        Axios.delete('http://localhost:3004/api/delete/:id', taskInput.id);
     };
 
 
     return (
-        <div> <div>
-            <button className='seeall' onClick={getTaskList}>show list
-            </button>
+         
+       <div>
 
-            {todoTasks.map((key, val) => {
-                return <div key={val.tasks}> {val.tasks} </div>
-            })}
-        </div>
+            <button onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
+           
             <img
                 className='paper-ball'
                 title='clear'
                 src={paperball}
-                onClick={() => handleClear(task)}
+                onClick={() => handleClear(taskInput)}       
             />
 
 
@@ -125,32 +133,52 @@ const Storage = () => {
             <form className='search' onSubmit={handleFormSubmit}>
                 <button className='bd_add' onClick={addTodo}>Click me</button>
                 <input className='bar'
-                    name="task"
+                    name="taskInput"
                     type="text"
                     placeholder="add to-do"
-                    value={task}
+                    value={taskInput}
                     onChange={handleInputChange}
                 />
             </form>
-            <div className='white-bgr'> <ul className='whole-list'>
-                {tasks.map((task) => (
-                    <li className='task-list' key={task.id}> {task.text}
-                        <div className='button-change'>
-                            <button className='delete' onClick={() => handleDeleteClick(task.id) | deleteTodo(task.id)}>
-                                <FontAwesomeIcon className='icons' icon={faTrashCan} />
-                            </button>
-                            <button className='edit' onClick={() => updateTask(task.id)}>
-                                <FontAwesomeIcon className='icons' icon={faPenToSquare} />
-                            </button>
-                            
+          {databaseChoice === 'local' ?  
+                <div className='white-bgr'> <ul className='whole-list'>
+                    {tasks.map((tasks) => (
+                        <li className='task-list' key={tasks.id}> {taskInput.task}
+                            <div className='button-change'>
+                                <button className='delete' onClick={() => handleDeleteClick(taskInput.id)}>
+                                    <FontAwesomeIcon className='icons' icon={faTrashCan} />
+                                </button>
+                                <button className='edit' onClick={() => updateTask(taskInput.id)}>
+                                    <FontAwesomeIcon className='icons' icon={faPenToSquare} />
+                                </button>
 
-                        </div>
-                    </li>
 
-                ))}
-            </ul>
-            </div>
+                            </div>
+                        </li>
 
+                    ))}
+                </ul>
+                </div>
+    
+               : <div className='white-bgr'> <ul className='whole-list'>
+                    {tasks.map((taskInput) => (
+                        <li className='task-list' key={taskInput.id}> {getTaskList}
+                        {console.log(taskInput.id)}
+                            <div className='button-change'>
+                                <button className='delete' onClick={() => deleteTodo(taskInput.id)}>
+                                    <FontAwesomeIcon className='icons' icon={faTrashCan} />
+                                </button>
+                                <button className='edit' onClick={() => updateTask(taskInput.id)}>
+                                    <FontAwesomeIcon className='icons' icon={faPenToSquare} />
+                                </button>
+
+
+                            </div>
+                        </li>
+
+                    ))}
+                </ul>
+                </div>}
         </div>
     );
 

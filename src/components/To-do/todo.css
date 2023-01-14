@@ -185,7 +185,7 @@
   margin-bottom: -7ch;
   margin-right: 15ch;
   top: 4%;
-
+ 
 
 }
 
@@ -212,8 +212,7 @@
 
 li {
   position: relative;
-
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid rgb(0, 0, 0);
   overflow-wrap: break-word;
   padding-top: .5ch;
 }
