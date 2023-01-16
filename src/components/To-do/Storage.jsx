@@ -20,7 +20,7 @@ const Storage = () => {
     });
     const [databaseChoice, setDatabaseChoice] = useState('local');
     const [taskInput, setTaskInput] = useState("");
-    
+    const [databaseList, setDatabaseList] = useState([]); 
 
 
     useEffect(() => {
@@ -42,8 +42,8 @@ const Storage = () => {
             setTasks([
                 ...tasks,
                 {
-                    id: tasks.length +1,
-                    task: taskInput
+                    id: tasks.length,
+                    text: taskInput
                 }
             ]);
         }
@@ -83,7 +83,7 @@ const Storage = () => {
         const item = newTodoItems[id];
 
         let newItem = prompt(`update task ${item.id + 1}?`, item.taskInput);
-        let todoObj = { id: id.taskInput, task: newItem };
+        let todoObj = { id: id.taskInput, text: newItem };
 
         newTodoItems.splice(id, 1, todoObj);
         if (newItem === null || newItem === "") {
@@ -99,20 +99,20 @@ const Storage = () => {
         e.preventDefault();
         Axios.post('http://localhost:3004/api/create',
             { task: taskInput }).then(() => {
-                setTasks([
-                    ...tasks,
+                setDatabaseList([
+                    ...databaseList,
                     {
-                        task: taskInput,
+                      task: taskInput,
+                     
                     },
-                ]);
-            });
-            setTaskInput("");
-         };
+                  ]);
+                });
+              };
 
     const getTaskList = () => {
         Axios.get('http://localhost:3004/api/task').then((response) => {
-            setTasks(response.data)
-            console.log(getTaskList())
+            setDatabaseList(response.data)
+            
         });
     };
 
@@ -133,7 +133,6 @@ const Storage = () => {
                 onClick={() => handleClear(taskInput)}
             />
 
-
             <img
                 className='pencil_img'
                 src={pencilimg}
@@ -151,8 +150,8 @@ const Storage = () => {
  {databaseChoice === 'local' ?
    ( 
                     <div className='white-bgr'> <ul className='whole-list'>
-                        {tasks.map((taskInput) => (
-                            <li className='task-list' key={taskInput.id}> {taskInput.id}  {console.log(databaseChoice)}
+                        {tasks.map((taskInput, text) => (
+                            <li className='task-list' key={taskInput.id}> {taskInput.text}  {console.log(taskInput.text)}
                                 <div className='button-change'>
                                     <button className='delete' onClick={() => handleDeleteClick(taskInput.id)}>
                                         <FontAwesomeIcon className='icons' icon={faTrashCan} />
@@ -168,9 +167,9 @@ const Storage = () => {
                 : (
                     <div className='white-bgr'> <ul className='whole-list'>
              
-                        {tasks.map((task, id) => (
+                        {databaseList.map((id, task) => (
                          
-                        <li className='task-list' key={task.id}> {task.task}   
+                        <li className='task-list' key={task.id}> {id.task}  {console.log(id)}
                           <div className='button-change'>   
                                 <button className='delete' onClick={() => deleteTodo(task.id)}>
                                     <FontAwesomeIcon className='icons' icon={faTrashCan} />
