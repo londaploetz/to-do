@@ -175,7 +175,7 @@ const Storage = () => {
              
                         {databaseList.map((id, task) => (
                          
-                        <li className='task-list' key={task.id}> {id.task}  {console.log(id.task)}
+                        <li className='task-list' key={task.id}> {id.task}  {console.log(task)}
                           <div className='button-change'>   
                                 <button className='delete' onClick={() => deleteTodo(id)}>
                                     <FontAwesomeIcon className='icons' icon={faTrashCan} />
