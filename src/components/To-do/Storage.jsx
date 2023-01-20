@@ -27,7 +27,7 @@ const Storage = () => {
         if (databaseChoice === 'local') {
             localStorage.setItem("tasks", JSON.stringify(tasks));
         } else if (databaseChoice === 'Mysql') {
-            getTaskList();
+           getTaskList();
         }
     }, [tasks]);
 
@@ -117,8 +117,14 @@ const Storage = () => {
     };
 
     const deleteTodo = (id) => {
-        Axios.delete(`http://localhost:3004/api/delete/${id}`, tasks.id);
-    };
+        Axios.delete(`http://localhost:3004/api/delete/${id}`).then((response) => {
+            setDatabaseList(
+              databaseList.filter((task) => {
+                return task.id != id;
+              })
+            );
+          });
+        };
 
   
     return (
@@ -164,14 +170,14 @@ const Storage = () => {
                         ))}
                     </ul>
                     </div>)
-                : (
+                : ( 
                     <div className='white-bgr'> <ul className='whole-list'>
              
                         {databaseList.map((id, task) => (
                          
-                        <li className='task-list' key={task.id}> {id.task}  {console.log(id)}
+                        <li className='task-list' key={task.id}> {id.task}  {console.log(id.task)}
                           <div className='button-change'>   
-                                <button className='delete' onClick={() => deleteTodo(task.id)}>
+                                <button className='delete' onClick={() => deleteTodo(id)}>
                                     <FontAwesomeIcon className='icons' icon={faTrashCan} />
                                 </button>
                                 <button className='edit' onClick={() => updateTask(taskInput.id)}>
