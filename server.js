@@ -48,9 +48,9 @@ app.get("/api/task", (req,res)=>{
 // Route for creating the task
 app.post('/api/create', (req, res) => {
 
-    const task = req.body.task;
+    const task = req.body.text;
 
-    db.query("INSERT INTO todo_list (task) VALUES (?)", task, (err, result) => {
+    db.query("INSERT INTO todo_list (text) VALUES (?)", task, (err, result) => {
         if (err) {
             console.log(err)
         }
@@ -67,6 +67,8 @@ app.delete('/api/delete/:id', (req, res) => {
         if (err) {
             console.log(err)
         }
+        console.log(result)
+        res.send(result)
     })
 })
 
