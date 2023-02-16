@@ -12,13 +12,11 @@ const Storage = () => {
     const [databaseChoice, setDatabaseChoice] = useState('local');
     const [tasks, setTasks] = useState([]);
     const [taskInput, setTaskInput] = useState("");
-    const [databaseList, setDatabaseList] = useState([]);
+
 
 
     function updateDataBase() {
         if (databaseChoice === 'local') {
-            // console.log("hi");
-            // console.log(tasks);
             localStorage.setItem("tasks", JSON.stringify(tasks));
         } else if (databaseChoice === 'Mysql') {
             //getTaskList();
@@ -26,14 +24,7 @@ const Storage = () => {
         }
     }
 
-    // useEffect(() => {
-    //     if (databaseChoice === 'local') {
-    //         localStorage.setItem("tasks", JSON.stringify(tasks));
-    //     } else if (databaseChoice === 'Mysql') {
-    //         //getTaskList();
-    //         //setTaskListDatabase
-    //     }
-    // }, [tasks]);
+
 
     useEffect(() => {
         getTaskList(databaseChoice);
@@ -51,18 +42,30 @@ const Storage = () => {
     }
     function handleFormSubmit(e) {
         e.preventDefault();
-
         if (taskInput !== "") {
-            setTasks([
-                ...tasks,
-                {
-                    id: tasks.length,
-                    text: taskInput
-                }
-            ]);
-            setTaskInput("");
-        }
+            if (databaseChoice === 'local') {
+                setTasks([
+                    ...tasks,
+                    {
+                        id: tasks.length,
+                        text: taskInput
+                    }
+                ]);
 
+            } else if (databaseChoice === 'Mysql') {
+                console.log(taskInput)
+                Axios.post('http://localhost:3004/api/create',
+                    { text: taskInput }).then(() => {
+                        setTasks([
+                            ...tasks,
+                            {
+                                text: taskInput,
+                            },
+                        ]);
+                    });
+            };
+        }
+        setTaskInput("");
     }
 
 
@@ -100,32 +103,44 @@ const Storage = () => {
 
         const item = newTodoItems[id];
 
-        let newItem = prompt(`update task ${item.id + 1}?`, item.taskInput);
-        let todoObj = { id: id.taskInput, text: newItem };
-
+        let newItem = prompt(`update ${item.text}?`, item.text);
+        let todoObj = { id: id, text: newItem };
         newTodoItems.splice(id, 1, todoObj);
-        if (newItem === null || newItem === "") {
-            return;
-        } else {
-            item.taskInput = newItem;
+         console.log(todoObj)
+        if (databaseChoice === "local") {
+
+            if (newItem === null || newItem === "") {
+                return;
+            } else {
+                item.tasks = newItem;
+            } setTasks(newTodoItems);
+            console.log(todoObj)
+
+        } else if (databaseChoice === "Mysql") {
+            Axios.put("http://localhost:3004/api/update", { text: newTodoItems, id: id.item }).then(
+                (response) => {
+                    setTasks([...tasks, 
+                        {   id: id, 
+                            text: newTodoItems }]);
+                }
+            )
         }
-        setTasks(newTodoItems);
+    }
 
-    };
 
-    const addTodo = (e) => {
+    // const addTodo = (e) => {
 
-        Axios.post('http://localhost:3004/api/create',
-            { task: taskInput }).then(() => {
-                setDatabaseList([
-                    ...databaseList,
-                    {
-                        task: taskInput,
+    //     Axios.post('http://localhost:3004/api/create',
+    //         { task: taskInput }).then(() => {
+    //             setDatabaseList([
+    //                 ...databaseList,
+    //                 {
+    //                     task: taskInput,
 
-                    },
-                ]);
-            });
-    };
+    //                 },
+    //             ]);
+    //         });
+    // };
 
     const getTaskList = (choice) => {
         if (choice === 'local') {
@@ -152,63 +167,63 @@ const Storage = () => {
 
         } else if (choice === "Mysql") {
             Axios.delete(`http://localhost:3004/api/delete/${id}`).then((response) => {
-            console.log(response)   
-            setTasks(
+                console.log(response)
+                setTasks(
                     tasks.filter((task) => {
                         return task.id !== id;
                     })
                 );
             });
-    };
-}
+        };
+    }
 
-return (
+    return (
 
-    <div>
-        <button onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
-        <img
-            className='paper-ball'
-            title='clear'
-            src={paperball}
-            onClick={() => handleClear(taskInput)}
-        />
-
-        <img
-            className='pencil_img'
-            src={pencilimg}
-        />
-        <form className='search' onSubmit={handleFormSubmit}>
-            <input className='bar'
-                name="taskInput"
-                type="text"
-                placeholder="add to-do"
-                value={taskInput}
-                onChange={handleInputChange}
+        <div>
+            <button onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
+            <img
+                className='paper-ball'
+                title='clear'
+                src={paperball}
+                onClick={() => handleClear(taskInput)}
             />
-        </form>
+
+            <img
+                className='pencil_img'
+                src={pencilimg}
+            />
+            <form className='search' onSubmit={handleFormSubmit}>
+                <input className='bar'
+                    name="taskInput"
+                    type="text"
+                    placeholder="add to-do"
+                    value={taskInput}
+                    onChange={handleInputChange}
+                />
+            </form>
 
 
-        <div className='white-bgr'>
-            {tasks !== [] &&
-                <ul className='whole-list'>
-                    {tasks.map((task) => (
+            <div className='white-bgr'>
+                {tasks !== [] &&
+                    <ul className='whole-list'>
+                        {tasks.map((task) => (
 
-                        <li className='task-list' key={task.id}> {task.text}
-                            <div className='button-change'>
-                                <button className='delete' onClick={() => deleteTask(task.id, databaseChoice)}>
-                                    <FontAwesomeIcon className='icons' icon={faTrashCan} />
-                                </button>
-                                <button className='edit' onClick={() => updateTask(taskInput.id)}>
-                                    <FontAwesomeIcon className='icons' icon={faPenToSquare} />
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            }
-        </div>
+                            <li className='task-list' key={Math.random()}> {task.text}
+                                <div className='button-change'>
+                                    <button className='delete' onClick={() => deleteTask(task.id, databaseChoice)}>
+                                        <FontAwesomeIcon className='icons' icon={faTrashCan} />
+                                    </button>
+                                    <button className='edit' onClick={() => updateTask(task.id)}>
+                                        <FontAwesomeIcon className='icons' icon={faPenToSquare} />
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                }
+            </div>
 
-        {/* <div className='white-bgr'> <ul className='whole-list'>
+            {/* <div className='white-bgr'> <ul className='whole-list'>
              
                         {databaseList.map((id, task) => (
                          
@@ -227,8 +242,8 @@ return (
                     </ul>
                     </div>
                 ) } */}
-    </div>
-);
+        </div>
+    );
 
 }
 

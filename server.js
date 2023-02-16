@@ -54,7 +54,7 @@ app.post('/api/create', (req, res) => {
         if (err) {
             console.log(err)
         }
-        console.log(result)
+        res.send(result)
     });
 })
 
@@ -72,7 +72,17 @@ app.delete('/api/delete/:id', (req, res) => {
     })
 })
 
-
+app.put('/api/update', (req, res) => {
+    const id = req.body.id
+    const text = req.body.text
+    db.query("UPDATE todo_list SET text = ? WHERE = ?", [text, id], (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log(result)
+        res.send(result)
+    })
+})
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)
