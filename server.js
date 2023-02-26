@@ -72,6 +72,18 @@ app.delete('/api/delete/:id', (req, res) => {
     }); 
 }); 
 
+app.delete('/api/clear', (req, res) => {
+    const id = req.params.id;
+
+    db.query("DELETE FROM todo_list", id, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log(result)
+        res.send(result)
+    }); 
+}); 
+
 app.put("/api/update", (req, res) => {
     const id = req.body.id; 
     const text = req.body.text; 
