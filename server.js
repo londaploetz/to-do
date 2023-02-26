@@ -69,20 +69,21 @@ app.delete('/api/delete/:id', (req, res) => {
         }
         console.log(result)
         res.send(result)
-    })
-})
+    }); 
+}); 
 
-app.put('/api/update', (req, res) => {
-    const id = req.body.id
-    const text = req.body.text
-    db.query("UPDATE todo_list SET text = ? WHERE = ?", [text, id], (err, result) => {
+app.put("/api/update", (req, res) => {
+    const id = req.body.id; 
+    const text = req.body.text; 
+    db.query("UPDATE todo_list SET text = ? WHERE id = ?", [text, id], (err, result) => {
         if (err) {
-            console.log(err)
+            console.log(err); 
+        } else {
+        console.log(result); 
+        res.send(result); 
         }
-        console.log(result)
-        res.send(result)
-    })
-})
+    }); 
+}); 
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)

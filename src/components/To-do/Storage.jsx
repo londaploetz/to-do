@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import paperball from '../../Assets/paperball.png'
 import Axios from 'axios'
-
+import uuid from 'react-uuid';
 
 
 const Storage = () => {
@@ -40,6 +40,7 @@ const Storage = () => {
     function handleInputChange(e) {
         setTaskInput(e.target.value);
     }
+
     function handleFormSubmit(e) {
         e.preventDefault();
         if (taskInput !== "") {
@@ -47,7 +48,7 @@ const Storage = () => {
                 setTasks([
                     ...tasks,
                     {
-                        id: tasks.length,
+                        id: uuid(),
                         text: taskInput
                     }
                 ]);
@@ -89,40 +90,62 @@ const Storage = () => {
         setTasks(removeItem);
     }
 
-    function handleClear() {
-        const clearedItems = tasks.filter((taskInput) => {
-            return (localStorage.removeItem(taskInput))
-        });
+//     function handleClear(choice) {
+//         if (choice === "local") {
+//         const clearedItems = tasks.filter((tasks) => {
+//             return (localStorage.removeItem(tasks))
+//         })
+//         setTasks(clearedItems)
 
-        setTasks(clearedItems)
-    }
+//     } else if (choice === "Mysql") {
+//         Axios.delete(`http://localhost:3004/api/delete/`).then((response) => {
+//             console.log(response)
+//             setTasks( tasks.filter((tasks) => {
+//                     return tasks ;
+//                 })
+                
+//             );
+//         }); 
+//     };
+// }
+        
+    
 
 
-    const updateTask = (id) => {
+    const updateTask = (idToUpdate) => {
         const newTodoItems = [...tasks];
 
-        const item = newTodoItems[id];
+        // const item = newTodoItems[id];
+        const item = newTodoItems.find(({ id }) => id === idToUpdate);
+        // console.log(newTodoItems)
+        // console.log(item)
+        // console.log(idToUpdate)
+        const taskIndex = newTodoItems.indexOf(item)
+        // console.log(taskIndex)
+        let newTextInput = prompt(`update ${item.text}?`, item.text);
 
-        let newItem = prompt(`update ${item.text}?`, item.text);
-        let todoObj = { id: id, text: newItem };
-        newTodoItems.splice(id, 1, todoObj);
-         console.log(todoObj)
         if (databaseChoice === "local") {
-
-            if (newItem === null || newItem === "") {
+            if (newTextInput === null || newTextInput === "") {
                 return;
             } else {
-                item.tasks = newItem;
-            } setTasks(newTodoItems);
-            console.log(todoObj)
+                item.text = newTextInput;
 
-        } else if (databaseChoice === "Mysql") {
-            Axios.put("http://localhost:3004/api/update", { text: newTodoItems, id: id.item }).then(
+            }
+            setTasks(newTodoItems);
+        }
+        else if (databaseChoice === "Mysql") {
+            Axios.put("http://localhost:3004/api/update", { text: newTextInput, id: idToUpdate }).then(
                 (response) => {
-                    setTasks([...tasks, 
-                        {   id: id, 
-                            text: newTodoItems }]);
+                    if (newTextInput === null || newTextInput === "") {
+                        return;
+                    } else {
+                        item.text = newTextInput;
+                        console.log(newTextInput)
+                        console.log(idToUpdate)
+                    }
+                    setTasks(newTodoItems);
                 }
+
             )
         }
     }
@@ -152,7 +175,7 @@ const Storage = () => {
         } else if (choice === 'Mysql') {
             Axios.get('http://localhost:3004/api/task').then((response) => {
                 setTasks(response.data)
-                console.log(response.data)
+                // console.log(response.data)
 
             })
         };
@@ -176,6 +199,8 @@ const Storage = () => {
             });
         };
     }
+
+
 
     return (
 
@@ -201,8 +226,6 @@ const Storage = () => {
                     onChange={handleInputChange}
                 />
             </form>
-
-
             <div className='white-bgr'>
                 {tasks !== [] &&
                     <ul className='whole-list'>
@@ -222,30 +245,11 @@ const Storage = () => {
                     </ul>
                 }
             </div>
-
-            {/* <div className='white-bgr'> <ul className='whole-list'>
-             
-                        {databaseList.map((id, task) => (
-                         
-                        <li className='task-list' key={task.id}> {id.task}  
-                          <div className='button-change'>   
-                                <button className='delete' onClick={() => deleteTodo(id.task)}>
-                                    <FontAwesomeIcon className='icons' icon={faTrashCan} />
-                                </button>
-                                <button className='edit' onClick={() => updateTask(taskInput.id)}>
-                                    <FontAwesomeIcon className='icons' icon={faPenToSquare} />
-                                </button>
-                                </div>
-                            </li>
-
-                        ))}
-                    </ul>
-                    </div>
-                ) } */}
         </div>
     );
 
-}
+            }
+
 
 
 
