@@ -204,7 +204,7 @@ const Storage = () => {
 
     return (
         <div>
-            <button onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
+            <button className= "switch-btn" onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
             <img
                 className='paper-ball'
                 title='clear'
