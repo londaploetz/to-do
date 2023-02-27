@@ -12,6 +12,8 @@ import Modal from 'react-bootstrap/Modal';
 
 
 const Storage = () => {
+
+
     const [databaseChoice, setDatabaseChoice] = useState('local');
     const [tasks, setTasks] = useState([]);
     const [taskInput, setTaskInput] = useState("");
@@ -20,18 +22,15 @@ const Storage = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
+    ////function to determine whether the you are in local storage vs mysql 
     function updateDataBase() {
         if (databaseChoice === 'local') {
             localStorage.setItem("tasks", JSON.stringify(tasks));
         } else if (databaseChoice === 'Mysql') {
-            //getTaskList();
-            //setTaskListDatabase
         }
     }
 
-
-
+    //// retrieves the tasklist based on local or mysql
     useEffect(() => {
         getTaskList(databaseChoice);
     }, []);
@@ -42,11 +41,12 @@ const Storage = () => {
         }
     }, [tasks]);
 
-
+    //// updates the form input 
     function handleInputChange(e) {
         setTaskInput(e.target.value);
+        console.log(e.target.value)
     }
-
+    ///// add a task to list 
     function handleFormSubmit(e) {
         e.preventDefault();
         if (taskInput !== "") {
@@ -76,6 +76,7 @@ const Storage = () => {
     }
 
 
+    //// switches the database choice 
     function switchDatabase() {
         var choice;
         if (databaseChoice === 'Mysql') {
@@ -89,14 +90,8 @@ const Storage = () => {
         getTaskList(choice);
     }
 
-    // function handleDeleteClick(id) {
-    //     const removeItem = tasks.filter((taskInput) => {
-    //         return taskInput.id !== id;
-    //     });
-    //     setTasks(removeItem);
-    // }
 
-
+    //// clear all tasks
     function handleClear(id) {
         if (databaseChoice === 'local') {
             const clearedItems = tasks.filter(() => {
@@ -128,28 +123,26 @@ const Storage = () => {
         };
     }
 
-
-
-
-
-
+    //// update a single task
     const updateTask = (idToUpdate) => {
         const newTodoItems = [...tasks];
 
         // const item = newTodoItems[id];
         const item = newTodoItems.find(({ id }) => id === idToUpdate);
-        // console.log(newTodoItems)
-        // console.log(item)
-        // console.log(idToUpdate)
         const taskIndex = newTodoItems.indexOf(item)
-        // console.log(taskIndex)
-        let newTextInput = prompt(`update ${item.text}?`, item.text);
+        console.log(newTodoItems)
+        console.log(item)
+        console.log(idToUpdate)
 
+        let newTextInput = prompt(item.text)
+
+        console.log(newTextInput)
         if (databaseChoice === "local") {
             if (newTextInput === null || newTextInput === "") {
                 return;
             } else {
                 item.text = newTextInput;
+                console.log(newTextInput)
 
             }
             setTasks(newTodoItems);
@@ -171,21 +164,7 @@ const Storage = () => {
         }
     }
 
-
-    // const addTodo = (e) => {
-
-    //     Axios.post('http://localhost:3004/api/create',
-    //         { task: taskInput }).then(() => {
-    //             setDatabaseList([
-    //                 ...databaseList,
-    //                 {
-    //                     task: taskInput,
-
-    //                 },
-    //             ]);
-    //         });
-    // };
-
+    ///// retruns task lists 
     const getTaskList = (choice) => {
         if (choice === 'local') {
             const savedTasks = localStorage.getItem("tasks");
@@ -202,6 +181,7 @@ const Storage = () => {
         };
     };
 
+    //// delete one task
     const deleteTask = (id, choice) => {
         if (choice === "local") {
             const removeItem = tasks.filter((taskInput) => {
@@ -222,9 +202,7 @@ const Storage = () => {
     }
 
 
-
     return (
-
         <div>
             <button onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
             <img
@@ -257,44 +235,10 @@ const Storage = () => {
                                     <button className='delete' onClick={() => deleteTask(task.id, databaseChoice)}>
                                         <FontAwesomeIcon className='icons' icon={faTrashCan} />
                                     </button>
-                                    <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
+                                    <Button variant="primary" onClick={handleShow} id={task.id}>
+                                        Launch demo modal
+                                    </Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="name@example.com"
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-  
- 
                                     <button className='edit' onClick={() => updateTask(task.id)}>
                                         <FontAwesomeIcon className='icons' icon={faPenToSquare} />
                                     </button>
@@ -302,8 +246,37 @@ const Storage = () => {
                             </li>
                         ))}
                     </ul>
+
                 }
             </div>
+            {/* <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Modal heading</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form onSubmit={handleFormSubmit}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>tasks</Form.Label>
+                                    <Form.Control
+                                    name='edit todo'
+                                        type="text"  
+                                        placeholder={tasks.id}
+                                        value={props.id}
+                                        
+                                    />
+                                    {console.log(props.task)}
+                                </Form.Group>
+                            </Form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={() => updateTask(tasks.id)}>
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal> */}
         </div>
     );
 

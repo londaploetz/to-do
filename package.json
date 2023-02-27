@@ -20,6 +20,7 @@
     "react-bootstrap": "^2.7.0",
     "react-datetime": "^3.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-uuid": "^2.0.0",
     "sequelize": "^6.28.0",
@@ -30,7 +31,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
- 
   },
   "eslintConfig": {
     "extends": [

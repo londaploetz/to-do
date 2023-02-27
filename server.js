@@ -36,16 +36,17 @@ db.connect(function (err) {
 });
 
 // Route to get all tasks
-app.get("/api/task", (req,res)=>{
-    db.query("SELECT * FROM todo_list", (err,result)=>{
-        if(err) {
-        console.log(err)
-        } 
-    res.send(result)
-    });   });
+app.get("/api/task", (req, res) => {
+    db.query("SELECT * FROM todo_list", (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        res.send(result)
+    });
+});
 
 
-// Route for creating the task
+// Route for creating a task
 app.post('/api/create', (req, res) => {
 
     const task = req.body.text;
@@ -59,7 +60,7 @@ app.post('/api/create', (req, res) => {
 })
 
 
-// Route to delete a post
+// Route to delete a task
 app.delete('/api/delete/:id', (req, res) => {
     const id = req.params.id;
 
@@ -69,9 +70,10 @@ app.delete('/api/delete/:id', (req, res) => {
         }
         console.log(result)
         res.send(result)
-    }); 
-}); 
+    });
+});
 
+// Route to delete all tasks
 app.delete('/api/clear', (req, res) => {
     const id = req.params.id;
 
@@ -81,21 +83,22 @@ app.delete('/api/clear', (req, res) => {
         }
         console.log(result)
         res.send(result)
-    }); 
-}); 
+    });
+});
 
+// Route to update task
 app.put("/api/update", (req, res) => {
-    const id = req.body.id; 
-    const text = req.body.text; 
+    const id = req.body.id;
+    const text = req.body.text;
     db.query("UPDATE todo_list SET text = ? WHERE id = ?", [text, id], (err, result) => {
         if (err) {
-            console.log(err); 
+            console.log(err);
         } else {
-        console.log(result); 
-        res.send(result); 
+            console.log(result);
+            res.send(result);
         }
-    }); 
-}); 
+    });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)
