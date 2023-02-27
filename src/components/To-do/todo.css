@@ -1,0 +1,238 @@
+.task-list {
+  display: inline-flex;
+  flex-direction: column;
+
+  text-align: left;
+  align-items: left;
+  margin-top: 2ch;
+  margin-bottom: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  text-emphasis: none;
+  color: #000000;
+  overflow-wrap: break-word;
+  flex-wrap: wrap;
+
+}
+
+.white-bgr {
+  background-color: #FAFAFA;
+  position: absolute;
+  justify-content: center;
+  width: 500px;
+  height: 500px;
+  left: 16%;
+  top: 26%;
+  align-items: center;
+  border-radius: 20px 20px 20px 20px;
+
+  overflow: auto;
+  border: 5px #000000;
+  border-style: double;
+
+}
+
+
+
+.notebook {
+  position: fixed;
+  justify-content: center;
+  width: 250px;
+  height: 250px;
+  align-items: center;
+  left: 200px;
+  top: 25px;
+  bottom: 45px;
+
+}
+
+.side {
+  position: fixed;
+  width: 85px;
+  height: 809px;
+  left: -1px;
+  top: -6px;
+  background: #000000;
+  border-radius: 20px 0px 0px 20px;
+}
+
+.cover {
+
+  box-sizing: border-box;
+  position: fixed;
+  width: 660px;
+  height: 812px;
+  background: url(/src/Assets/hand-drawn-composition-notebook-pattern_23-2149275201.webp);
+  border: 8px solid #000000;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 20px 20px 20px 20px;
+}
+
+.pencil_img {
+  position: fixed;
+  left: 130%;
+  top: 4%;
+  width: 422px;
+  height: 570px;
+  transform: rotate(35deg);
+}
+
+.search {
+  position: fixed;
+  left: 141%;
+  top: 39%;
+  width: 29%;
+  height: 4%;
+  transform: rotate(340deg);
+  background: #FAFAFA;
+  border: 3px solid #000000;
+  border-radius: 20px 20px 20px 20px;
+}
+
+.bar {
+  position: fixed;
+  background: #FAFAFA;
+  border: none;
+  display: block;
+  left: 1.5ch;
+  width: fit-content;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 23px;
+  text-emphasis: none;
+  border-radius: 1px 1px 1px 1px;
+  text-align: left;
+  top: .5ch;
+}
+
+
+.paper-ball {
+  position: fixed;
+  left: 169%;
+  top: 50%;
+  width: 300px;
+  height: 370px;
+
+}
+
+.paper-ball:focus, .paper-ball:hover {
+    animation: wobble 1s 1
+}
+
+@keyframes wobble {
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-30deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+
+
+
+
+.delete {
+  text-align: left;
+  align-items: left;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  color: #d62323;
+  margin-left: 2ch;
+  flex-wrap: wrap;
+}
+
+
+.edit {
+
+  text-align: left;
+  align-items: left;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  color: #0c49a5;
+
+  margin-left: 2ch;
+  flex-wrap: wrap;
+}
+
+.button-change {
+  text-align: right;
+  display: inline-flex;
+  flex-direction: row;
+  margin-left: 310px;
+  border: none;
+  margin-top: -33px;
+
+
+
+}
+
+
+.whole-list {
+  position: flex;
+  text-align: left;
+  margin-bottom: -7ch;
+  margin-right: 15ch;
+  top: 4%;
+ 
+
+}
+
+.header-todo {
+  position: fixed;
+  background-color: #FAFAFA;
+
+  justify-content: center;
+  width: 500px;
+  height: 100px;
+  left: 16%;
+  top: 2%;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  border-radius: 20px 20px 20px 20px;
+  border: 5px #000000;
+  border-style: double;
+  z-index: 10;
+  text-decoration: underline;
+}
+
+li {
+  position: relative;
+  border-bottom: 2px solid rgb(0, 0, 0);
+  overflow-wrap: break-word;
+  padding-top: .5ch;
+}
+
+.icons {
+  width: 2ch;
+  height: 6ch;
+}
+
+
+
+.seeall {
+  position: absolute;
+  left: 100%;
+  height: 700%;
+}
+
+.bd_add {
+  position: inherit;
+  height:100%; 
+  left: 100%; 
+
+}
