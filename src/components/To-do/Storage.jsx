@@ -11,6 +11,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
 
+
 const Storage = () => {
 
 
@@ -18,9 +19,20 @@ const Storage = () => {
     const [tasks, setTasks] = useState([]);
     const [taskInput, setTaskInput] = useState("");
     const [show, setShow] = useState(false);
+    const [modalId, setModalId] = useState(); 
+    const [currentTodo, setCurrentTodo] = useState(""); 
+    const [updateData, setUpdateData] = useState('');
+    const [isEditing, setIsEditing] = useState(false); 
+
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = (id) => {
+        setModalId(id); 
+    
+   setShow(true); } 
+    
+
+
 
     ////function to determine whether the you are in local storage vs mysql 
     function updateDataBase() {
@@ -44,8 +56,45 @@ const Storage = () => {
     //// updates the form input 
     function handleInputChange(e) {
         setTaskInput(e.target.value);
-        console.log(e.target.value)
+       
     }
+
+    // function handleEditInputChange(e) {
+    //     // set the new state value to what's currently in the edit input box
+    //     setCurrentTodo({...currentTodo, text: e.target.value } );
+       
+    //      console.log(currentTodo);
+    //   }
+
+    
+
+    //   function handleUpdateTodo(updatedTodo, id) {
+       
+    //         setCurrentTodo(
+    //             tasks.map((task) => {
+    //               if (task.id === id) {
+    //                 task.text = updatedTodo;
+    //               }
+    //               return task;
+    //             })
+    //           );
+    //         };
+
+    //   function handleEditClick(task) {
+    //     // setCurrentTodo([...tasks]);
+        
+    //   }
+      
+    //   function handleEditFormSubmit(e) {
+    //     e.preventDefault();
+    
+    //     handleUpdateTodo(currentTodo,currentTodo.id);
+        
+    //   }
+
+
+
+ 
     ///// add a task to list 
     function handleFormSubmit(e) {
         e.preventDefault();
@@ -105,7 +154,6 @@ const Storage = () => {
         //     if (databaseChoice === 'local') {
         //         const delteAll = localStorage.clear(()  => {
         //            return delteAll;
-
         //         });
         //      setTasks(tasks)
         //     }  
@@ -123,6 +171,7 @@ const Storage = () => {
         };
     }
 
+
     //// update a single task
     const updateTask = (idToUpdate) => {
         const newTodoItems = [...tasks];
@@ -131,19 +180,19 @@ const Storage = () => {
         const item = newTodoItems.find(({ id }) => id === idToUpdate);
         const taskIndex = newTodoItems.indexOf(item)
         console.log(newTodoItems)
-        console.log(item)
+        console.log(item.text)
         console.log(idToUpdate)
 
-        let newTextInput = prompt(item.text)
+        // let newTextInput = prompt(item.task);
+       let newTextInput = setCurrentTodo({...currentTodo, text: item.text } );
 
         console.log(newTextInput)
         if (databaseChoice === "local") {
             if (newTextInput === null || newTextInput === "") {
                 return;
             } else {
-                item.text = newTextInput;
+                item.text = newTextInput
                 console.log(newTextInput)
-
             }
             setTasks(newTodoItems);
         }
@@ -164,6 +213,18 @@ const Storage = () => {
         }
     }
 
+
+
+    // const editTask = (id) => {
+    //     const editItem = tasks.find((task) => {
+    //        return task.id === id
+    //     }); 
+    //     setIsEditing(true); 
+    //     setEditId(id)
+    //     console.log(editItem); 
+    //      setTasks(editItem.text)
+    //   }
+
     ///// retruns task lists 
     const getTaskList = (choice) => {
         if (choice === 'local') {
@@ -178,18 +239,19 @@ const Storage = () => {
                 // console.log(response.data)
 
             })
+
         };
     };
 
     //// delete one task
-    const deleteTask = (id, choice) => {
-        if (choice === "local") {
-            const removeItem = tasks.filter((taskInput) => {
-                return taskInput.id !== id;
+    const deleteTask = (id) => {
+        if (databaseChoice === "local") {
+            const removeItem = tasks.filter((task) => {
+                return task.id !== id;
             });
             setTasks(removeItem);
 
-        } else if (choice === "Mysql") {
+        } else if (databaseChoice === "Mysql") {
             Axios.delete(`http://localhost:3004/api/delete/${id}`).then((response) => {
                 console.log(response)
                 setTasks(
@@ -201,10 +263,39 @@ const Storage = () => {
         };
     }
 
+    const changeTask = (e) => {
+        let newEntry = {
+          id: updateData.id,
+          text: e.target.value,
+        }
+        setUpdateData(newEntry);
+      }
+
+      const updateTasks = () => {
+        let filterRecords = [...tasks].filter( task => task.id !== updateData.id);
+        let updatedObject = [...filterRecords, updateData];
+        if (databaseChoice === "local") {
+    
+        setUpdateData('');
+        }
+      
+      else if (databaseChoice === "Mysql") {
+        Axios.put("http://localhost:3004/api/update", { text: updateData.task, id: updateData.id }).then(
+            (response) => {
+                    return
+     
+                 
+                }
+                
+        )
+        
+    }    setTasks(updatedObject);
+}
+
 
     return (
         <div>
-            <button className= "switch-btn" onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
+            <button className="switch-btn" onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
             <img
                 className='paper-ball'
                 title='clear'
@@ -226,57 +317,61 @@ const Storage = () => {
                 />
             </form>
             <div className='white-bgr'>
-                {tasks !== [] &&
+                {tasks !== [] && 
+                
                     <ul className='whole-list'>
+                      
                         {tasks.map((task) => (
-
                             <li className='task-list' key={Math.random()}> {task.text}
                                 <div className='button-change'>
-                                    <button className='delete' onClick={() => deleteTask(task.id, databaseChoice)}>
+                                    <button className='delete' onClick={() => deleteTask(task.id)}>
                                         <FontAwesomeIcon className='icons' icon={faTrashCan} />
                                     </button>
-                                    <Button variant="primary" onClick={handleShow} id={task.id}>
-                                        Launch demo modal
-                                    </Button>
-
-                                    <button className='edit' onClick={() => updateTask(task.id)}>
+                                    <button className='edit'  onClick={()=> {handleShow(task.id) ; setUpdateData({ id: task.id, text: task.text })}} >
                                         <FontAwesomeIcon className='icons' icon={faPenToSquare} />
                                     </button>
+                                   
+
                                 </div>
                             </li>
                         ))}
                     </ul>
-
                 }
             </div>
-            {/* <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Modal heading</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form onSubmit={handleFormSubmit}>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>tasks</Form.Label>
-                                    <Form.Control
-                                    name='edit todo'
-                                        type="text"  
-                                        placeholder={tasks.id}
-                                        value={props.id}
-                                        
-                                    />
-                                    {console.log(props.task)}
-                                </Form.Group>
-                            </Form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Close
-                            </Button>
-                            <Button variant="primary" onClick={() => updateTask(tasks.id)}>
-                                Save Changes
-                            </Button>
-                        </Modal.Footer>
-                    </Modal> */}
+
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{modalId}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={updateTasks}>
+                        <Form.Group className="mb-3">
+                            <Form.Label htmlFor="editTodo">Email address</Form.Label>
+                            <Form.Control id={modalId} 
+                                name="editTodo"
+                                type="text"
+                                placeholder="tasks to edit"
+                                value={updateData.task}
+                                onChange={(e) => changeTask(e)} 
+                                autoFocus
+                                
+                            />
+                        </Form.Group>
+                       
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={updateTasks}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+
         </div>
     );
 
