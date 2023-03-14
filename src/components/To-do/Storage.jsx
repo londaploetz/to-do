@@ -19,23 +19,22 @@ const Storage = () => {
     const [tasks, setTasks] = useState([]);
     const [taskInput, setTaskInput] = useState("");
     const [show, setShow] = useState(false);
-    const [modalId, setModalId] = useState(); 
-    const [currentTodo, setCurrentTodo] = useState(""); 
-    const [updateData, setUpdateData] = useState('');
-    const [isEditing, setIsEditing] = useState(false); 
+    const [modalId, setModalId] = useState();
+    const [updatedTask, setUpdatedTask] = useState('');
+
 
 
     const handleClose = () => setShow(false);
     const handleShow = (id) => {
-        setModalId(id); 
-    
-   setShow(true); } 
-    
+        setModalId(id);
+        setShow(true);
+    }
+
 
 
 
     ////function to determine whether the you are in local storage vs mysql 
-    function updateDataBase() {
+    function updatedTaskBase() {
         if (databaseChoice === 'local') {
             localStorage.setItem("tasks", JSON.stringify(tasks));
         } else if (databaseChoice === 'Mysql') {
@@ -49,52 +48,18 @@ const Storage = () => {
 
     useEffect(() => {
         if (tasks.length !== 0) {
-            updateDataBase();
+            updatedTaskBase();
         }
     }, [tasks]);
 
     //// updates the form input 
     function handleInputChange(e) {
         setTaskInput(e.target.value);
-       
+
     }
 
-    // function handleEditInputChange(e) {
-    //     // set the new state value to what's currently in the edit input box
-    //     setCurrentTodo({...currentTodo, text: e.target.value } );
-       
-    //      console.log(currentTodo);
-    //   }
-
-    
-
-    //   function handleUpdateTodo(updatedTodo, id) {
-       
-    //         setCurrentTodo(
-    //             tasks.map((task) => {
-    //               if (task.id === id) {
-    //                 task.text = updatedTodo;
-    //               }
-    //               return task;
-    //             })
-    //           );
-    //         };
-
-    //   function handleEditClick(task) {
-    //     // setCurrentTodo([...tasks]);
-        
-    //   }
-      
-    //   function handleEditFormSubmit(e) {
-    //     e.preventDefault();
-    
-    //     handleUpdateTodo(currentTodo,currentTodo.id);
-        
-    //   }
 
 
-
- 
     ///// add a task to list 
     function handleFormSubmit(e) {
         e.preventDefault();
@@ -109,7 +74,7 @@ const Storage = () => {
                 ]);
 
             } else if (databaseChoice === 'Mysql') {
-                console.log(taskInput)
+                // console.log(taskInput)
                 Axios.post('http://localhost:3004/api/create',
                     { text: taskInput }).then(() => {
                         setTasks([
@@ -173,57 +138,47 @@ const Storage = () => {
 
 
     //// update a single task
-    const updateTask = (idToUpdate) => {
-        const newTodoItems = [...tasks];
+    // const updateTask = (idToUpdate) => {
+    //     const newTodoItems = [...tasks];
 
-        // const item = newTodoItems[id];
-        const item = newTodoItems.find(({ id }) => id === idToUpdate);
-        const taskIndex = newTodoItems.indexOf(item)
-        console.log(newTodoItems)
-        console.log(item.text)
-        console.log(idToUpdate)
+    //     // const item = newTodoItems[id];
+    //     const item = newTodoItems.find(({ id }) => id === idToUpdate);
+    //     const taskIndex = newTodoItems.indexOf(item)
+    //     // console.log(newTodoItems)
+    //     // console.log(item.text)
+    //     // console.log(idToUpdate)
 
-        // let newTextInput = prompt(item.task);
-       let newTextInput = setCurrentTodo({...currentTodo, text: item.text } );
+    //     // let newTextInput = prompt(item.task);
+    //     let newTextInput = setCurrentTodo({ ...currentTodo, text: item.text });
 
-        console.log(newTextInput)
-        if (databaseChoice === "local") {
-            if (newTextInput === null || newTextInput === "") {
-                return;
-            } else {
-                item.text = newTextInput
-                console.log(newTextInput)
-            }
-            setTasks(newTodoItems);
-        }
-        else if (databaseChoice === "Mysql") {
-            Axios.put("http://localhost:3004/api/update", { text: newTextInput, id: idToUpdate }).then(
-                (response) => {
-                    if (newTextInput === null || newTextInput === "") {
-                        return;
-                    } else {
-                        item.text = newTextInput;
-                        console.log(newTextInput)
-                        console.log(idToUpdate)
-                    }
-                    setTasks(newTodoItems);
-                }
+    //     // console.log(newTextInput)
+    //     if (databaseChoice === "local") {
+    //         if (newTextInput === null || newTextInput === "") {
+    //             return;
+    //         } else {
+    //             item.text = newTextInput
+    //             // console.log(newTextInput)
+    //         }
+    //         setTasks(newTodoItems);
+    //     }
+    //     else if (databaseChoice === "Mysql") {
+    //         Axios.put("http://localhost:3004/api/update", { text: newTextInput, id: idToUpdate}).then(
+    //             (response) => {
+    //                 if (newTextInput === null || newTextInput === "") {
+    //                     return;
+    //                 } else {
+    //                     item.text = newTextInput;
+    //                     // console.log(newTextInput)
+    //                     // console.log(idToUpdate)
+    //                 }
+    //                 setTasks(newTodoItems);
+    //             }
 
-            )
-        }
-    }
+    //         )
+    //     }
+    // }
 
 
-
-    // const editTask = (id) => {
-    //     const editItem = tasks.find((task) => {
-    //        return task.id === id
-    //     }); 
-    //     setIsEditing(true); 
-    //     setEditId(id)
-    //     console.log(editItem); 
-    //      setTasks(editItem.text)
-    //   }
 
     ///// retruns task lists 
     const getTaskList = (choice) => {
@@ -253,7 +208,7 @@ const Storage = () => {
 
         } else if (databaseChoice === "Mysql") {
             Axios.delete(`http://localhost:3004/api/delete/${id}`).then((response) => {
-                console.log(response)
+                // console.log(response)
                 setTasks(
                     tasks.filter((task) => {
                         return task.id !== id;
@@ -263,45 +218,41 @@ const Storage = () => {
         };
     }
 
-    const changeTask = (e) => {
-        let newEntry = {
-          id: updateData.id,
-          text: e.target.value,
+    //// update a single task
+    const updatedTaskInput = (e) => {
+        let editInput = {
+            id: updatedTask.id,
+            text: e.target.value,
         }
-        setUpdateData(newEntry);
-      }
+        setUpdatedTask(editInput);
+    }
 
-      const updateTasks = () => {
-        let filterRecords = [...tasks].filter( task => task.id !== updateData.id);
-        let updatedObject = [...filterRecords, updateData];
+    const editTask = () => {
+        let filterTasks = [...tasks].filter((task) => {
+            return (
+                task.id !== updatedTask.id
+            )
+        })
+        let updatedObject = [updatedTask, ...filterTasks];
         if (databaseChoice === "local") {
-    
-        setUpdateData('');
+            setTasks(updatedObject);
         }
-      
-      else if (databaseChoice === "Mysql") {
-        Axios.put("http://localhost:3004/api/update", { text: updateData.task, id: updateData.id }).then(
-            (response) => {
-                    return
-     
-                 
+        else if (databaseChoice === "Mysql") {
+            Axios.put("http://localhost:3004/api/update", { text: updatedTask.text, id: updatedTask.id }).then(
+                (response) => {
+                    return (
+                        setTasks(updatedObject)
+                    )
                 }
-                
-        )
-        
-    }    setTasks(updatedObject);
-}
+            )
+        }
+        setUpdatedTask('');
+    }
 
 
     return (
         <div>
             <button className="switch-btn" onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
-            <img
-                className='paper-ball'
-                title='clear'
-                src={paperball}
-                onClick={handleClear}
-            />
 
             <img
                 className='pencil_img'
@@ -317,20 +268,20 @@ const Storage = () => {
                 />
             </form>
             <div className='white-bgr'>
-                {tasks !== [] && 
-                
+                {tasks !== [] &&
+
                     <ul className='whole-list'>
-                      
+
                         {tasks.map((task) => (
                             <li className='task-list' key={Math.random()}> {task.text}
                                 <div className='button-change'>
                                     <button className='delete' onClick={() => deleteTask(task.id)}>
                                         <FontAwesomeIcon className='icons' icon={faTrashCan} />
                                     </button>
-                                    <button className='edit'  onClick={()=> {handleShow(task.id) ; setUpdateData({ id: task.id, text: task.text })}} >
+                                    <button className='edit' onClick={() => { handleShow(task.id); setUpdatedTask({ id: task.id, text: task.text }) }} >
                                         <FontAwesomeIcon className='icons' icon={faPenToSquare} />
                                     </button>
-                                   
+
 
                                 </div>
                             </li>
@@ -342,30 +293,30 @@ const Storage = () => {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{modalId}</Modal.Title>
+                    <Modal.Title className="modal-title">Edit Task</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={updateTasks}>
+                    <Form onSubmit={editTask}>
                         <Form.Group className="mb-3">
-                            <Form.Label htmlFor="editTodo">Email address</Form.Label>
-                            <Form.Control id={modalId} 
+                            <Form.Label className="modal-form-group" htmlFor="editTodo"> {updatedTask.text}</Form.Label>
+                            <Form.Control id={modalId}
                                 name="editTodo"
                                 type="text"
                                 placeholder="tasks to edit"
-                                value={updateData.task}
-                                onChange={(e) => changeTask(e)} 
+                                value={updatedTask.task}
+                                onChange={(e) => updatedTaskInput(e)}
                                 autoFocus
-                                
+
                             />
                         </Form.Group>
-                       
+
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={updateTasks}>
+                    <Button variant="primary" onClick={editTask}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

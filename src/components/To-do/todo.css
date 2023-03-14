@@ -1,21 +1,28 @@
 .task-list {
-  display: inline-flex;
+  display: block;
   flex-direction: column;
-
+  position: relative;
+  width: 26ch;
   text-align: left;
-  align-items: left;
   margin-top: 2ch;
-  margin-bottom: 4px;
-  font-family: 'Courier New', Courier, monospace;
+  margin-right: 4ch;
+  margin-bottom: 0px;
+  font-family: 'Fuzzy Bubbles', cursive;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 20px;
   line-height: 23px;
   text-emphasis: none;
   color: #000000;
-  overflow-wrap: break-word;
+  overflow-wrap:break-word;
   flex-wrap: wrap;
+  
 
+}
+
+li.task-list {
+  position: relative;
+  
 }
 
 .white-bgr {
@@ -23,12 +30,11 @@
   position: absolute;
   justify-content: center;
   width: 500px;
-  height: 500px;
+  height: 539px;
   left: 16%;
   top: 26%;
   align-items: center;
   border-radius: 20px 20px 20px 20px;
-
   overflow: auto;
   border: 5px #000000;
   border-style: double;
@@ -60,9 +66,8 @@
 }
 
 .cover {
-
   box-sizing: border-box;
-  position: fixed;
+  position: relative;
   width: 660px;
   height: 812px;
   background: url(/src/Assets/hand-drawn-composition-notebook-pattern_23-2149275201.webp);
@@ -72,7 +77,8 @@
 }
 
 .pencil_img {
-  position: fixed;
+  position: relative;
+  display: flex;
   left: 130%;
   top: 4%;
   width: 422px;
@@ -97,9 +103,9 @@
   background: #FAFAFA;
   border: none;
   display: block;
-  left: 1.5ch;
+  left: 1.2ch;
   width: fit-content;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Dekko', cursive !important;
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
@@ -107,62 +113,41 @@
   text-emphasis: none;
   border-radius: 1px 1px 1px 1px;
   text-align: left;
-  top: .5ch;
+  top: 0ch;
 }
-
-
-.paper-ball {
-  position: fixed;
-  left: 169%;
-  top: 50%;
-  width: 300px;
-  height: 370px;
-
+.modal-title {
+  font-family: 'Dekko', cursive
 }
-
-.paper-ball:focus, .paper-ball:hover {
-    animation: wobble 1s 1
+.modal-form-group{
+  font-family: 'Dekko', cursive
 }
-
-@keyframes wobble {
-  25% {
-    transform: rotate(15deg);
-  }
-  50% {
-    transform: rotate(-30deg);
-  }
-  75% {
-    transform: rotate(5deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-
-
-
 
 .delete {
   text-align: left;
   align-items: left;
   background-color: rgba(255, 255, 255, 0);
   border: none;
+
   color: #d62323;
   margin-left: 2ch;
   flex-wrap: wrap;
 }
 
+button, input, optgroup, select, textarea {
+  margin: 0;
+  font-family: none !important;
+  font-size: inherit;
+  line-height: inherit;
+}
 
 .edit {
-
+  
   text-align: left;
   align-items: left;
   background-color: rgba(255, 255, 255, 0);
   border: none;
   color: #0c49a5;
-
-  margin-left: 2ch;
+  margin-left: 1ch;
   flex-wrap: wrap;
 }
 
@@ -170,12 +155,13 @@
   text-align: right;
   display: inline-flex;
   flex-direction: row;
+  position: relative;
+  
   margin-left: 310px;
-  border: none;
-  margin-top: -33px;
-
-
-
+  top:2px; 
+  margin-top: -31px;
+  border-bottom: 2px solid #000000;
+  z-index: 2;
 }
 
 
@@ -197,18 +183,22 @@
   width: 500px;
   height: 100px;
   left: 16%;
-  top: 2%;
+  top: 10%;
   align-items: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Dekko', cursive;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 40px;
   border-radius: 20px 20px 20px 20px;
   border: 5px #000000;
   border-style: double;
   z-index: 10;
-  text-decoration: underline;
+  text-decoration: 2px underline;
+ 
 }
+
+
+
 
 li {
   position: relative;
@@ -242,14 +232,14 @@ li {
   color: #000000;
   width: 223px;
   height: 32px;
-  top: 4px; 
-  left: 33px; 
+  top: 20px; 
+  left: 30px; 
   border-radius: 10px;
   background-color: #FAFAFA;
   font-size: medium;
   justify-content: center;
   align-items: center;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Dekko', cursive !important;
   border-radius: 20px 20px 20px 20px;
   border: 5px #000000;
   border-style: double;

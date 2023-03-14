@@ -12,7 +12,7 @@ const Todo = () => (
    <div className="notebook"> 
   
         <div className='cover'>
-          <h1 className='header-todo'> Today's Tasks <br>
+          <h1 className='header-todo'> TODAY'S TASKS <br>
            </br>{date}
            
           </h1>
