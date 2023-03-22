@@ -34,7 +34,7 @@ const Storage = () => {
 
 
     ////function to determine whether the you are in local storage vs mysql 
-    function updatedTaskBase() {
+    function updatedDatabase() {
         if (databaseChoice === 'local') {
             localStorage.setItem("tasks", JSON.stringify(tasks));
         } else if (databaseChoice === 'Mysql') {
@@ -48,7 +48,7 @@ const Storage = () => {
 
     useEffect(() => {
         if (tasks.length !== 0) {
-            updatedTaskBase();
+            updatedDatabase();
         }
     }, [tasks]);
 
