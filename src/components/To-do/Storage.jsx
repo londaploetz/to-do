@@ -105,78 +105,6 @@ const Storage = () => {
     }
 
 
-    //// clear all tasks
-    function handleClear(id) {
-        if (databaseChoice === 'local') {
-            const clearedItems = tasks.filter(() => {
-                return (localStorage.clear())
-            });
-            setTasks(clearedItems)
-        }
-
-
-        // function handleClear() {
-        //     if (databaseChoice === 'local') {
-        //         const delteAll = localStorage.clear(()  => {
-        //            return delteAll;
-        //         });
-        //      setTasks(tasks)
-        //     }  
-        // }
-
-        else if (databaseChoice === "Mysql") {
-            Axios.delete('http://localhost:3004/api/clear').then((response) => {
-                console.log(response)
-                setTasks(
-                    tasks.filter((id) => {
-                        return id !== id;
-                    })
-                );
-            });
-        };
-    }
-
-
-    //// update a single task
-    // const updateTask = (idToUpdate) => {
-    //     const newTodoItems = [...tasks];
-
-    //     // const item = newTodoItems[id];
-    //     const item = newTodoItems.find(({ id }) => id === idToUpdate);
-    //     const taskIndex = newTodoItems.indexOf(item)
-    //     // console.log(newTodoItems)
-    //     // console.log(item.text)
-    //     // console.log(idToUpdate)
-
-    //     // let newTextInput = prompt(item.task);
-    //     let newTextInput = setCurrentTodo({ ...currentTodo, text: item.text });
-
-    //     // console.log(newTextInput)
-    //     if (databaseChoice === "local") {
-    //         if (newTextInput === null || newTextInput === "") {
-    //             return;
-    //         } else {
-    //             item.text = newTextInput
-    //             // console.log(newTextInput)
-    //         }
-    //         setTasks(newTodoItems);
-    //     }
-    //     else if (databaseChoice === "Mysql") {
-    //         Axios.put("http://localhost:3004/api/update", { text: newTextInput, id: idToUpdate}).then(
-    //             (response) => {
-    //                 if (newTextInput === null || newTextInput === "") {
-    //                     return;
-    //                 } else {
-    //                     item.text = newTextInput;
-    //                     // console.log(newTextInput)
-    //                     // console.log(idToUpdate)
-    //                 }
-    //                 setTasks(newTodoItems);
-    //             }
-
-    //         )
-    //     }
-    // }
 
 
 
@@ -267,6 +195,7 @@ const Storage = () => {
                     onChange={handleInputChange}
                 />
             </form>
+            
             <div className='white-bgr'>
                 {tasks !== [] &&
 
@@ -309,7 +238,6 @@ const Storage = () => {
 
                             />
                         </Form.Group>
-
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
@@ -321,8 +249,6 @@ const Storage = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-
         </div>
     );
 
