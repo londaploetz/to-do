@@ -3,7 +3,7 @@
 [![made-with-VSCode](https://img.shields.io/badge/Made%20with-VSCode-1f425f.svg)](https://code.visualstudio.com/)
 # Todo
 
-My todo list is helpful tool to help you keep track of important tasks, using CRUD. This app usese persistant local storage, and has a toggle feature that is persistant through MySQL database. You can create, read, update, and delete both locally and from the databse.  
+My todo list is helpful tool to help you keep track of important tasks, using CRUD. This app uses persistant local storage, and has a toggle feature that is persistant through MySQL database. You can create, read, update, and delete both locally and from the databse.  
 
 # Table of Contents 
 
@@ -30,7 +30,7 @@ No contributors allowed.
 
  **Languages**
 
-HTML, CSS, JavaScript, Node.js, MySQL
+HTML, CSS, JavaScript, Node.js
 
 **FrameWorks**
 
