@@ -47,10 +47,10 @@ li.task-list {
 .notebook {
   position: fixed;
   justify-content: center;
-  width: 75%;
+  width: 69%;
   height: 250px;
   align-items: center;
-  left: 500px;
+  left: 650px;
   top: 20px;
   bottom: 45px;
 
@@ -79,7 +79,7 @@ li.task-list {
 .cover {
   box-sizing: border-box;
   position: relative;
-  width: 70%;
+  width: 60%;
   height: 812px;
   top: 5ch;
   background: url(/src/Assets/hand-drawn-composition-notebook-pattern_23-2149275201.webp);
@@ -98,11 +98,11 @@ li.task-list {
 
 .bar {
   position: absolute;
-  top: 19ch;
-  right: 12ch;
+  top: 16ch;
+  right: 27ch;
   width: 30ch;
   height: 5ch;
-  background: #FAFAFA;
+  background: #ffffffc4;
   z-index: 1;
   border: 3px solid #000000;
   transform: rotate(-10deg);
@@ -230,7 +230,7 @@ li {
   width: 50%;
   height: 32px;
   top: 20px;
-  left: 28px;
+  left: 45px;
   border-radius: 10px;
   background-color: #FAFAFA;
   font-size: medium;
@@ -244,7 +244,7 @@ li {
 }
 
 .switch-btn:hover {
-  background-color: #ffee00;
+  background-color: #f5f840f8;
 }
 
 .desk {
@@ -255,11 +255,41 @@ li {
   background-size: cover;
 }
 
+@media screen and (max-width: 1390px) {
+  .notebook {
+    width: 75%;
+    left: 550px;
+  }
+  
+  .white-bgr {
+    width: 70%;
+    height: 539px;
+    left: 14ch;
+
+  }
+
+  .header-todo {
+    width: 70%;
+    left: 7.5ch;
+    font-size: 25px;
+    padding-top: 1ch;
+
+  }
+  .task-list {
+    font-size: 17px;
+  }
+  .bar {
+   
+    top: 16ch;
+    right: 17.3ch;
+    
+  }
+}
 
 @media screen and (max-width: 750px) {
   .notebook {
     left: 2ch;
-    width: 120%;
+    width: 150%;
     top: 6ch;
   }
 
@@ -286,10 +316,15 @@ li {
     width: 60%;
     left: 8ch;
     font-size: 25px;
+    padding-top: 1ch;
 
   }
 
   .task-list {
     font-size: 17px;
+  }
+
+  .pencil{
+    display: none;
   }
 }
