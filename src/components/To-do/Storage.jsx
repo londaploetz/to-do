@@ -182,10 +182,7 @@ const Storage = () => {
         <div>
             <button className="switch-btn" onClick={switchDatabase}> {databaseChoice === 'local' ? "switch to Mysql" : "switch to local"} </button>
 
-            <img
-                className='pencil_img'
-                src={pencilimg}
-            />
+           
             <form className='search' onSubmit={handleFormSubmit}>
                 <input className='bar'
                     name="taskInput"

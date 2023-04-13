@@ -2,7 +2,7 @@
   display: block;
   flex-direction: column;
   position: relative;
-  width: 26ch;
+  width: 100%;
   text-align: left;
   margin-top: 2ch;
   margin-right: 4ch;
@@ -14,24 +14,25 @@
   line-height: 23px;
   text-emphasis: none;
   color: #000000;
-  overflow-wrap:break-word;
+  overflow-wrap: break-word;
   flex-wrap: wrap;
-  
+
+
 
 }
 
 li.task-list {
   position: relative;
-  
+
 }
 
 .white-bgr {
   background-color: #FAFAFA;
   position: absolute;
   justify-content: center;
-  width: 500px;
+  width: 75%;
   height: 539px;
-  left: 16%;
+  left: 15ch;
   top: 26%;
   align-items: center;
   border-radius: 20px 20px 20px 20px;
@@ -46,11 +47,11 @@ li.task-list {
 .notebook {
   position: fixed;
   justify-content: center;
-  width: 250px;
+  width: 75%;
   height: 250px;
   align-items: center;
-  left: 200px;
-  top: 25px;
+  left: 500px;
+  top: 20px;
   bottom: 45px;
 
 }
@@ -65,75 +66,74 @@ li.task-list {
   border-radius: 20px 0px 0px 20px;
 }
 
+.pencil {
+  position: absolute;
+  left: 5ch;
+  top: 15ch;
+  width: 400px;
+  height: 400px;
+  z-index: -1;
+
+}
+
 .cover {
   box-sizing: border-box;
   position: relative;
-  width: 660px;
+  width: 70%;
   height: 812px;
+  top: 5ch;
   background: url(/src/Assets/hand-drawn-composition-notebook-pattern_23-2149275201.webp);
+  background-size: cover;
   border: 8px solid #000000;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   border-radius: 20px 20px 20px 20px;
 }
 
-.pencil_img {
-  position: relative;
-  display: flex;
-  left: 130%;
-  top: 4%;
-  width: 422px;
-  height: 570px;
-  transform: rotate(35deg);
-}
 
 .search {
-  position: fixed;
-  left: 141%;
-  top: 39%;
-  width: 29%;
-  height: 4%;
-  transform: rotate(340deg);
+  position: absolute;
   background: #FAFAFA;
-  border: 3px solid #000000;
-  border-radius: 20px 20px 20px 20px;
+  font-family: 'Dekko', cursive !important;
 }
 
 .bar {
-  position: fixed;
+  position: absolute;
+  top: 19ch;
+  right: 12ch;
+  width: 30ch;
+  height: 5ch;
   background: #FAFAFA;
-  border: none;
-  display: block;
-  left: 1.2ch;
-  width: fit-content;
+  z-index: 1;
+  border: 3px solid #000000;
+  transform: rotate(-10deg);
+  border-radius: 20px 20px 20px 20px;
   font-family: 'Dekko', cursive !important;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 23px;
-  text-emphasis: none;
-  border-radius: 1px 1px 1px 1px;
-  text-align: left;
-  top: 0ch;
 }
+
 .modal-title {
   font-family: 'Dekko', cursive
 }
-.modal-form-group{
+
+.modal-form-group {
   font-family: 'Dekko', cursive
 }
 
 .delete {
-  text-align: left;
-  align-items: left;
+  position: relative;
+  text-align: center;
+  align-items: center;
   background-color: rgba(255, 255, 255, 0);
   border: none;
-
   color: #d62323;
   margin-left: 2ch;
   flex-wrap: wrap;
 }
 
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
   margin: 0;
   font-family: none !important;
   font-size: inherit;
@@ -141,7 +141,6 @@ button, input, optgroup, select, textarea {
 }
 
 .edit {
-  
   text-align: left;
   align-items: left;
   background-color: rgba(255, 255, 255, 0);
@@ -154,11 +153,12 @@ button, input, optgroup, select, textarea {
 .button-change {
   text-align: right;
   display: inline-flex;
+  justify-content: center;
   flex-direction: row;
   position: relative;
-  
-  margin-left: 310px;
-  top:2px; 
+  width: 140px;
+  margin-left: 90%;
+  top: 2px;
   margin-top: -31px;
   border-bottom: 2px solid #000000;
   z-index: 2;
@@ -171,17 +171,15 @@ button, input, optgroup, select, textarea {
   margin-bottom: -7ch;
   margin-right: 15ch;
   top: 4%;
- 
 }
 
 .header-todo {
   position: fixed;
   background-color: #FAFAFA;
-
   justify-content: center;
-  width: 500px;
-  height: 100px;
-  left: 16%;
+  width: 75%;
+  height: 14%;
+  left: 5ch;
   top: 10%;
   align-items: center;
   font-family: 'Dekko', cursive;
@@ -193,7 +191,7 @@ button, input, optgroup, select, textarea {
   border-style: double;
   z-index: 10;
   text-decoration: 2px underline;
- 
+
 }
 
 
@@ -221,18 +219,18 @@ li {
 
 .bd_add {
   position: inherit;
-  height:100%; 
-  left: 100%; 
+  height: 100%;
+  left: 100%;
 
 }
 
 .switch-btn {
   position: relative;
   color: #000000;
-  width: 223px;
+  width: 50%;
   height: 32px;
-  top: 20px; 
-  left: 30px; 
+  top: 20px;
+  left: 28px;
   border-radius: 10px;
   background-color: #FAFAFA;
   font-size: medium;
@@ -243,4 +241,55 @@ li {
   border: 5px #000000;
   border-style: double;
 
+}
+
+.switch-btn:hover {
+  background-color: #ffee00;
+}
+
+.desk {
+  background: url(/src/Assets/wood_background.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+@media screen and (max-width: 750px) {
+  .notebook {
+    left: 2ch;
+    width: 120%;
+    top: 6ch;
+  }
+
+  .bar {
+    top: -12ch;
+    left: 22%;
+    width: 32ch;
+    height: 5ch;
+    background: #FAFAFA;
+    z-index: 1;
+    border: 3px solid #000000;
+    transform: none;
+    border-radius: 20px 20px 20px 20px;
+  }
+
+  .white-bgr {
+    width: 60%;
+    height: 539px;
+    left: 15ch;
+
+  }
+
+  .header-todo {
+    width: 60%;
+    left: 8ch;
+    font-size: 25px;
+
+  }
+
+  .task-list {
+    font-size: 17px;
+  }
 }
