@@ -49,5 +49,22 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "[![made-with-VSCode](https://img.shields.io/badge/Made%20with-VSCode-1f425f.svg)](https://code.visualstudio.com/)\r # Todo",
+  "main": "db.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/londaploetz/to-do.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/londaploetz/to-do/issues"
+  },
+  "homepage": "https://github.com/londaploetz/to-do#readme",
+  "devDependencies": {
+    "json-server": "^0.17.3",
+    "ts-node": "^10.9.1"
   }
 }
