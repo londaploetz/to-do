@@ -62,7 +62,7 @@
   "bugs": {
     "url": "https://github.com/londaploetz/to-do/issues"
   },
-  "homepage": "https://github.com/londaploetz/to-do#readme",
+
   "devDependencies": {
     "json-server": "^0.17.3",
     "ts-node": "^10.9.1"

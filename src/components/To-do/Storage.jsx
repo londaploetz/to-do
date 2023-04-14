@@ -115,7 +115,7 @@ const Storage = () => {
                 // console.log(savedTasks)
             }
         } else if (choice === 'Mysql') {
-            Axios.get('https://todo-database-local-switch.herokuapp.com//api/task').then((response) => {
+            Axios.get('https://todo-database-local-switch.herokuapp.com/api/task').then((response) => {
                 setTasks(response.data)
                 // console.log(response.data)
 

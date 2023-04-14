@@ -24,7 +24,7 @@ app.use((req, res, next) => {
     next();
 });
 
-const PORT = 3006;
+const PORT = 3004;
 
 
 db.connect(function (err) {
