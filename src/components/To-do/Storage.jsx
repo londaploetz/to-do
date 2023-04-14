@@ -1,9 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import pencilimg from '../../Assets/redpencil.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import paperball from '../../Assets/paperball.png'
 import Axios from 'axios'
 import uuid from 'react-uuid';
 import Button from 'react-bootstrap/Button';
@@ -75,7 +73,7 @@ const Storage = () => {
 
             } else if (databaseChoice === 'Mysql') {
                 // console.log(taskInput)
-                Axios.post('http://localhost:3004/api/create',
+                Axios.post('https://todo-database-local-switch.herokuapp.com/api/create',
                     { text: taskInput }).then(() => {
                         setTasks([
                             ...tasks,
@@ -117,7 +115,7 @@ const Storage = () => {
                 // console.log(savedTasks)
             }
         } else if (choice === 'Mysql') {
-            Axios.get('http://localhost:3004/api/task').then((response) => {
+            Axios.get('https://todo-database-local-switch.herokuapp.com//api/task').then((response) => {
                 setTasks(response.data)
                 // console.log(response.data)
 
@@ -135,7 +133,7 @@ const Storage = () => {
             setTasks(removeItem);
 
         } else if (databaseChoice === "Mysql") {
-            Axios.delete(`http://localhost:3004/api/delete/${id}`).then((response) => {
+            Axios.delete(`https://todo-database-local-switch.herokuapp.com/api/delete/${id}`).then((response) => {
                 // console.log(response)
                 setTasks(
                     tasks.filter((task) => {
@@ -166,7 +164,7 @@ const Storage = () => {
             setTasks(updatedObject);
         }
         else if (databaseChoice === "Mysql") {
-            Axios.put("http://localhost:3004/api/update", { text: updatedTask.text, id: updatedTask.id }).then(
+            Axios.put("https://todo-database-local-switch.herokuapp.com/api/update", { text: updatedTask.text, id: updatedTask.id }).then(
                 (response) => {
                     return (
                         setTasks(updatedObject)
