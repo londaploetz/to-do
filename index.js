@@ -36,7 +36,7 @@ db.connect(function (err) {
 });
 
 // Route to get all tasks
-app.get("/api/task", (req, res) => {
+app.get("https://todo-database-local-switch.herokuapp.com/api/task", (req, res) => {
     db.query("SELECT * FROM todo_list", (err, result) => {
         if (err) {
             console.log(err)
