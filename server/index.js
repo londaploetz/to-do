@@ -24,7 +24,7 @@ app.use((req, res, next) => {
     next();
 });
 
-const PORT = 3004;
+const PORT = process.env.PORT || 3004;
 
 
 db.connect(function (err) {
@@ -100,6 +100,6 @@ app.put("/api/update", (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)
 }); 
