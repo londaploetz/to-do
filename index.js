@@ -10,6 +10,7 @@ const db = mysql.createConnection({
     user: "bfbdb1a52337ed",
     password: "b0eae117",
     database: "heroku_0b8d447bd5fb0d8"
+    
 })
 
 
@@ -17,11 +18,15 @@ db.on('error', function (err) {
     console.log("[mysql error]", err);
 });
 
-
-const PORT = process.env.PORT || 3004;
-
 app.use(express.json());
 app.use(cors());
+
+
+
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     next();
+// });
 
 
 // declare react files in build as static
@@ -29,6 +34,7 @@ app.use(express.static(path.join(__dirname, "build")));
 
 
 
+const PORT = process.env.PORT || 3004;
 
 
 db.connect(function (err) {
