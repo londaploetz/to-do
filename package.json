@@ -33,12 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+ 
   "browserslist": {
     "production": [
       ">0.2%",
@@ -66,8 +61,5 @@
   "devDependencies": {
     "json-server": "^0.17.3",
     "ts-node": "^10.9.1"
-  }, 
-  "engines": {
-    "node": "12.14.1"
   }
 }
