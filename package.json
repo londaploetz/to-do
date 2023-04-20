@@ -28,9 +28,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "react-scripts start",
-    "start:dev": "react-scripts start"
+    "start": "node index.js", 
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -65,5 +66,8 @@
   "devDependencies": {
     "json-server": "^0.17.3",
     "ts-node": "^10.9.1"
+  }, 
+  "engines": {
+    "node": "12.14.1"
   }
 }

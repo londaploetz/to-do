@@ -2,7 +2,7 @@ const express = require('express');
 // const db = require('./db')
 const cors = require('cors')
 const app = express();
-
+const path = require("path");
 
 const mysql = require('mysql')
 const db = mysql.createConnection({
@@ -11,6 +11,15 @@ const db = mysql.createConnection({
     password: "b0eae117",
     database: "heroku_0b8d447bd5fb0d8"
 })
+
+// declare react files in build as static
+app.use(express.static(path.join(__dirname, "build")));
+
+// serve index.html from the build folder
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 
 db.on('error', function (err) {
     console.log("[mysql error]", err);
