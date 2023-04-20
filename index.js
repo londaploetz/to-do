@@ -1,10 +1,10 @@
 const express = require('express');
-// const db = require('./db')
 const cors = require('cors')
 const app = express();
 const path = require("path");
 
 const mysql = require('mysql')
+
 const db = mysql.createConnection({
     host: "us-cdbr-east-06.cleardb.net",
     user: "bfbdb1a52337ed",
@@ -12,26 +12,26 @@ const db = mysql.createConnection({
     database: "heroku_0b8d447bd5fb0d8"
 })
 
-// declare react files in build as static
-app.use(express.static(path.join(__dirname, "build")));
-
-// serve index.html from the build folder
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
 
 db.on('error', function (err) {
     console.log("[mysql error]", err);
 });
 
+app.use(express.json());
 app.use(cors());
-app.use(express.json())
+
+
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     next();
 });
+
+
+// declare react files in build as static
+app.use(express.static(path.join(__dirname, "build")));
+
+
 
 const PORT = process.env.PORT || 3004;
 
@@ -109,6 +109,11 @@ app.put("/api/update", (req, res) => {
     });
 });
 
+// serve index.html from the build folder
+app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+  
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`)
 }); 
