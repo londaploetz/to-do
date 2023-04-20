@@ -109,6 +109,6 @@ app.put("/api/update", (req, res) => {
     });
 });
 
-const listener = app.listen(PORT, () => {
-    console.log(`Server is running on ${PORT}` + listener.address().port)
+app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`)
 }); 
