@@ -5,7 +5,7 @@ const path = require("path");
 
 const mysql = require('mysql')
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
     host: "us-cdbr-east-06.cleardb.net",
     user: "bfbdb1a52337ed",
     password: "b0eae117",
