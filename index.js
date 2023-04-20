@@ -5,7 +5,7 @@ const path = require("path");
 
 const mysql = require('mysql')
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: "us-cdbr-east-06.cleardb.net",
     user: "bfbdb1a52337ed",
     password: "b0eae117",
@@ -17,6 +17,9 @@ db.on('error', function (err) {
     console.log("[mysql error]", err);
 });
 
+
+const PORT = process.env.PORT || 3004;
+
 app.use(express.json());
 app.use(cors());
 
@@ -26,7 +29,6 @@ app.use(express.static(path.join(__dirname, "build")));
 
 
 
-const PORT = process.env.PORT || 3004;
 
 
 db.connect(function (err) {
